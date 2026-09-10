@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Swanirbhar — Sovereign AI Workbench</title>
+
+    <meta name="description"
+          content="Swanirbhar is a sovereign on-premise agentic AI workbench designed for secure, local and intelligent AI workflows.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #ffffff;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        nav {
+            height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+        }
+
+        .brand span {
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .nav-links a {
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .nav-download {
+            background: #2563eb;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 9px;
+        }
+
+        .nav-download:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 105px 0 80px;
+            background:
+                radial-gradient(circle at 80% 20%, #dbeafe 0, transparent 30%),
+                linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #dbeafe;
+            padding: 7px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            background: #2563eb;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 72px);
+            line-height: 1.05;
+            letter-spacing: -3px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero-description {
+            max-width: 720px;
+            margin: auto;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 34px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 10px 25px rgba(37,99,235,0.22);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid #dbe1ea;
+            background: white;
+            color: #0f172a;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        /* =========================
+           APP PREVIEW
+        ========================= */
+
+        .app-preview {
+            margin: 70px auto 0;
+            max-width: 1000px;
+        }
+
+        .window {
+            background: #ffffff;
+            border: 1px solid #dbe3ef;
+            border-radius: 18px;
+            box-shadow:
+                0 30px 70px rgba(15,23,42,0.12),
+                0 8px 20px rgba(15,23,42,0.05);
+            overflow: hidden;
+        }
+
+        .window-top {
+            height: 46px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 7px;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f8fafc;
+        }
+
+        .window-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .window-content {
+            min-height: 400px;
+            display: grid;
+            grid-template-columns: 210px 1fr;
+            background: #f8fafc;
+        }
+
+        .mock-sidebar {
+            background: #0f172a;
+            padding: 24px 16px;
+            color: white;
+        }
+
+        .mock-logo {
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .mock-menu {
+            padding: 11px 12px;
+            border-radius: 8px;
+            margin-bottom: 7px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .mock-menu.active {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        .mock-main {
+            padding: 35px;
+        }
+
+        .mock-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .mock-subtitle {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        .mock-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .mock-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .mock-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 9px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+
+        .mock-card strong {
+            font-size: 13px;
+        }
+
+        .mock-card p {
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-label {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(30px, 4vw, 46px);
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            margin-bottom: 18px;
+        }
+
+        .section-description {
+            color: #64748b;
+            max-width: 650px;
+        }
+
+        /* =========================
+           PROBLEM
+        ========================= */
+
+        .problem {
+            background: #f8fafc;
+        }
+
+        .problem-header {
+            max-width: 700px;
+            margin-bottom: 45px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .problem-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 27px;
+            transition: 0.25s;
+        }
+
+        .problem-card:hover {
+            border-color: #bfdbfe;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(15,23,42,0.06);
+        }
+
+        .problem-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #2563eb;
+            margin-bottom: 18px;
+        }
+
+        .problem-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .problem-card p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* =========================
+           SOLUTION
+        ========================= */
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .solution-list {
+            margin-top: 30px;
+        }
+
+        .solution-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 23px;
+        }
+
+        .check {
+            width: 27px;
+            height: 27px;
+            min-width: 27px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .solution-item h4 {
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .solution-item p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .solution-visual {
+            background: linear-gradient(145deg, #eff6ff, #f8fafc);
+            border: 1px solid #dbeafe;
+            border-radius: 22px;
+            padding: 30px;
+        }
+
+        .visual-box {
+            background: white;
+            border: 1px solid #dbe3ef;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(15,23,42,0.07);
+        }
+
+        .visual-heading {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .visual-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .flow-box {
+            padding: 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .flow-box.blue {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: #2563eb;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features-section {
+            background: #f8fafc;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .features-header .section-description {
+            margin: auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 28px;
+        }
+
+        .feature-icon {
+            color: #2563eb;
+            font-size: 22px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* =========================
+           TECHNOLOGY
+        ========================= */
+
+        .tech {
+            text-align: center;
+        }
+
+        .tech-list {
+            margin-top: 45px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .tech-item {
+            padding: 12px 19px;
+            border: 1px solid #dbe3ef;
+            border-radius: 9px;
+            background: white;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .tech-item i {
+            color: #2563eb;
+            margin-right: 7px;
+        }
+
+        /* =========================
+           DOWNLOAD
+        ========================= */
+
+        .download-section {
+            padding: 90px 0;
+        }
+
+        .download-box {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: white;
+            border-radius: 25px;
+            padding: 65px 50px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(37,99,235,0.22);
+        }
+
+        .download-box::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+            top: -200px;
+            right: -80px;
+        }
+
+        .download-box::after {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 50%;
+            bottom: -190px;
+            left: -80px;
+        }
+
+        .download-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-box h2 {
+            font-size: clamp(30px, 4vw, 45px);
+            letter-spacing: -1px;
+            margin-bottom: 13px;
+        }
+
+        .download-box p {
+            color: #dbeafe;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .download-info {
+            margin: 22px 0;
+            color: #dbeafe;
+            font-size: 13px;
+        }
+
+        .download-btn {
+            background: white;
+            color: #1d4ed8;
+            padding: 14px 28px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* =========================
+           TEAM
+        ========================= */
+
+        .team {
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .team-header {
+            margin-bottom: 40px;
+        }
+
+        .team-name {
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .team-subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .members {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .member {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            padding: 11px 17px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 35px 0;
+            background: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+        }
+
+        .footer-brand span {
+            color: #2563eb;
+        }
+
+        .footer-text {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: #2563eb;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .nav-links a:not(.nav-download) {
+                display: none;
+            }
+
+            .problem-grid,
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .window-content {
+                grid-template-columns: 150px 1fr;
+            }
+
+            .mock-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero {
+                padding: 75px 0 50px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .problem-grid,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .window-content {
+                grid-template-columns: 1fr;
+            }
+
+            .mock-sidebar {
+                display: none;
+            }
+
+            .mock-main {
+                padding: 20px;
+            }
+
+            .download-box {
+                padding: 45px 22px;
+                border-radius: 20px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header>
+    <div class="container">
+        <nav>
+
+            <a href="#" class="brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-cube"></i>
+                </div>
+
+                Swanirbhar
+            </a>
+
+            <div class="nav-links">
+                <a href="#problem">Problem</a>
+                <a href="#solution">Solution</a>
+                <a href="#features">Features</a>
+                <a href="#technology">Technology</a>
+
+                <a href="#download" class="nav-download">
+                    Download
+                </a>
+            </div>
+
+        </nav>
+    </div>
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<main>
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Sovereign On-Premise Agentic AI
+            </div>
+
+            <h1>
+                Your AI.<br>
+                <span>Your Infrastructure.</span>
+            </h1>
+
+            <p class="hero-description">
+                Swanirbhar is a secure, local-first AI workbench designed
+                to run intelligent workflows, retrieve knowledge and
+                generate deliverables without depending on cloud AI services.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#download" class="btn btn-primary">
+                    <i class="fa-solid fa-download"></i>
+                    Download for Windows
+                </a>
+
+                <a href="#solution" class="btn btn-secondary">
+                    Explore Swanirbhar
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- APP PREVIEW -->
+
+        <div class="app-preview">
+
+            <div class="window">
+
+                <div class="window-top">
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+                </div>
+
+                <div class="window-content">
+
+                    <aside class="mock-sidebar">
+
+                        <div class="mock-logo">
+                            <i class="fa-solid fa-cube"></i>
+                            Swanirbhar
+                        </div>
+
+                        <div class="mock-menu active">
+                            <i class="fa-solid fa-house"></i>
+                            &nbsp; Dashboard
+                        </div>
+
+                        <div class="mock-menu">
+                            <i class="fa-solid fa-folder"></i>
+                            &nbsp; Projects
+                        </div>
+
+                        <div class="mock-menu">
+                            <i class="fa-solid fa-file"></i>
+                            &nbsp; Documents
+                        </div>
+
+                        <div class="mock-menu">
+                            <i class="fa-solid fa-gear"></i>
+                            &nbsp; Settings
+                        </div>
+
+                    </aside>
+
+
+                    <div class="mock-main">
+
+                        <div class="mock-title">
+                            AI Workbench
+                        </div>
+
+                        <div class="mock-subtitle">
+                            Build, analyze and generate with local AI.
+                        </div>
+
+                        <div class="mock-cards">
+
+                            <div class="mock-card">
+
+                                <div class="mock-icon">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+
+                                <strong>
+                                    Local AI
+                                </strong>
+
+                                <p>
+                                    Run models locally
+                                </p>
+
+                            </div>
+
+
+                            <div class="mock-card">
+
+                                <div class="mock-icon">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+
+                                <strong>
+                                    Knowledge
+                                </strong>
+
+                                <p>
+                                    Search your documents
+                                </p>
+
+                            </div>
+
+
+                            <div class="mock-card">
+
+                                <div class="mock-icon">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+
+                                <strong>
+                                    Agents
+                                </strong>
+
+                                <p>
+                                    Automate complex tasks
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PROBLEM
+========================= -->
+
+<section class="problem" id="problem">
+
+    <div class="container">
+
+        <div class="problem-header">
+
+            <div class="section-label">
+                The Problem
+            </div>
+
+            <h2 class="section-title">
+                AI should not require<br>
+                giving up control.
+            </h2>
+
+            <p class="section-description">
+                Modern AI workflows often depend on external cloud
+                services. For sensitive environments, this creates
+                serious privacy, security and operational challenges.
+            </p>
+
+        </div>
+
+
+        <div class="problem-grid">
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    <i class="fa-solid fa-cloud"></i>
+                </div>
+
+                <h3>
+                    Cloud Dependency
+                </h3>
+
+                <p>
+                    AI workflows often require external APIs and
+                    continuous internet connectivity.
+                </p>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <h3>
+                    Data Privacy
+                </h3>
+
+                <p>
+                    Sensitive documents and organizational knowledge
+                    may leave the controlled environment.
+                </p>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    <i class="fa-solid fa-link"></i>
+                </div>
+
+                <h3>
+                    Vendor Lock-in
+                </h3>
+
+                <p>
+                    Dependence on proprietary AI providers limits
+                    control over models and infrastructure.
+                </p>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+
+                <h3>
+                    Knowledge Silos
+                </h3>
+
+                <p>
+                    Documents, organizational knowledge and AI tools
+                    are often disconnected.
+                </p>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+
+                <h3>
+                    Resource Constraints
+                </h3>
+
+                <p>
+                    Deploying capable AI systems locally can be
+                    difficult on limited hardware.
+                </p>
+
+            </div>
+
+
+            <div class="problem-card">
+
+                <div class="problem-icon">
+                    <i class="fa-solid fa-gears"></i>
+                </div>
+
+                <h3>
+                    Fragmented Workflows
+                </h3>
+
+                <p>
+                    Research, coding, retrieval and document generation
+                    often require multiple disconnected tools.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SOLUTION
+========================= -->
+
+<section id="solution">
+
+    <div class="container">
+
+        <div class="solution-grid">
+
+            <div>
+
+                <div class="section-label">
+                    The Solution
+                </div>
+
+                <h2 class="section-title">
+                    One workbench.<br>
+                    Complete control.
+                </h2>
+
+                <p class="section-description">
+                    Swanirbhar brings local AI models, agentic
+                    orchestration, knowledge retrieval and secure
+                    execution into one unified workspace.
+                </p>
+
+
+                <div class="solution-list">
+
+                    <div class="solution-item">
+
+                        <div class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+                            <h4>
+                                Local-first AI
+                            </h4>
+
+                            <p>
+                                Run open-weight AI models directly
+                                within your infrastructure.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="solution-item">
+
+                        <div class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+                            <h4>
+                                Agentic orchestration
+                            </h4>
+
+                            <p>
+                                Complex requests are decomposed into
+                                specialized tasks automatically.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="solution-item">
+
+                        <div class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+                            <h4>
+                                Hybrid knowledge retrieval
+                            </h4>
+
+                            <p>
+                                Combine keyword and semantic search
+                                for better document grounding.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="solution-item">
+
+                        <div class="check">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+                            <h4>
+                                Secure execution
+                            </h4>
+
+                            <p>
+                                Coding and execution tasks can run
+                                inside an isolated environment.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="solution-visual">
+
+                <div class="visual-box">
+
+                    <div class="visual-heading">
+                        Swanirbhar Workflow
+                    </div>
+
+                    <div class="visual-flow">
+
+                        <div class="flow-box blue">
+                            User Request
+                        </div>
+
+                        <div class="flow-arrow">
+                            ↓
+                        </div>
+
+                        <div class="flow-box">
+                            Agentic Planner
+                        </div>
+
+                        <div class="flow-arrow">
+                            ↓
+                        </div>
+
+                        <div class="flow-box">
+                            Intelligent Model Router
+                        </div>
+
+                        <div class="flow-arrow">
+                            ↓
+                        </div>
+
+                        <div class="flow-box">
+                            Specialized Agents
+                        </div>
+
+                        <div class="flow-arrow">
+                            ↓
+                        </div>
+
+                        <div class="flow-box">
+                            Local Models + Knowledge
+                        </div>
+
+                        <div class="flow-arrow">
+                            ↓
+                        </div>
+
+                        <div class="flow-box blue">
+                            Final Deliverable
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="features-section" id="features">
+
+    <div class="container">
+
+        <div class="features-header">
+
+            <div class="section-label">
+                Capabilities
+            </div>
+
+            <h2 class="section-title">
+                Built for serious AI workflows.
+            </h2>
+
+            <p class="section-description">
+                Everything needed to build secure, intelligent and
+                locally controlled AI workflows.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+
+                <h3>
+                    Local AI Models
+                </h3>
+
+                <p>
+                    Run open-weight models locally using a
+                    controlled model-serving environment.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+
+                <h3>
+                    Agentic AI
+                </h3>
+
+                <p>
+                    Automatically plan complex requests and
+                    coordinate specialized AI agents.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <h3>
+                    Hybrid RAG
+                </h3>
+
+                <p>
+                    Combine semantic and keyword retrieval to
+                    ground responses in your documents.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-route"></i>
+                </div>
+
+                <h3>
+                    Intelligent Routing
+                </h3>
+
+                <p>
+                    Route individual tasks to models optimized
+                    for their specific requirements.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <h3>
+                    Secure Sandbox
+                </h3>
+
+                <p>
+                    Execute coding workloads in an isolated
+                    environment with controlled resources.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-file-export"></i>
+                </div>
+
+                <h3>
+                    Deliverable Generation
+                </h3>
+
+                <p>
+                    Generate practical outputs including
+                    documents, spreadsheets and presentations.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TECHNOLOGY
+========================= -->
+
+<section class="tech" id="technology">
+
+    <div class="container">
+
+        <div class="section-label">
+            Technology
+        </div>
+
+        <h2 class="section-title">
+            Powered by an open ecosystem.
+        </h2>
+
+        <p class="section-description" style="margin:auto;">
+            Swanirbhar is designed around modern open-source
+            technologies for flexibility, control and extensibility.
+        </p>
+
+
+        <div class="tech-list">
+
+            <div class="tech-item">
+                <i class="fa-brands fa-python"></i>
+                PySide6
+            </div>
+
+            <div class="tech-item">
+                <i class="fa-solid fa-server"></i>
+                FastAPI
+            </div>
+
+            <div class="tech-item">
+                <i class="fa-solid fa-cubes"></i>
+                Ollama
+            </div>
+
+            <div class="tech-item">
+                <i class="fa-solid fa-route"></i>
+                LiteLLM
+            </div>
+
+            <div class="tech-item">
+                <i class="fa-solid fa-database"></i>
+                SQLite
+            </div>
+
+            <div class="tech-item">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                FTS5
+            </div>
+
+            <div class="tech-item">
+                <i class="fa-solid fa-vector-square"></i>
+                sqlite-vec
+            </div>
+
+            <div class="tech-item">
+                <i class="fa-brands fa-docker"></i>
+                Docker
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DOWNLOAD
+========================= -->
+
+<section class="download-section" id="download">
+
+    <div class="container">
+
+        <div class="download-box">
+
+            <h2>
+                Bring sovereign AI to your machine.
+            </h2>
+
+            <p>
+                Download the Swanirbhar AI Workbench demo and
+                experience a local-first agentic AI environment.
+            </p>
+
+            <div class="download-info">
+                Windows 10/11 &nbsp; · &nbsp;
+                64-bit &nbsp; · &nbsp;
+                v2.0 Stable
+            </div>
+
+            <!-- Replace # with actual .exe URL -->
+
+            <a href="https://github.com/ashfakalam/Swanirbhar/releases/download/v1.0.0/SwanirbharWorkbench.exe"
+               class="download-btn"
+               download>
+
+                <i class="fa-brands fa-windows"></i>
+
+                Download for Windows
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TEAM
+========================= -->
+
+<section class="team">
+
+    <div class="container">
+
+        <div class="team-header">
+
+            <div class="section-label">
+                The Team
+            </div>
+
+            <div class="team-name">
+                TechTitans
+            </div>
+
+            <div class="team-subtitle">
+                Building secure and sovereign AI solutions.
+            </div>
+
+        </div>
+
+
+        <div class="members">
+
+            <div class="member">
+                Ashfak Alam
+            </div>
+
+            <div class="member">
+                Nadia Muskan
+            </div>
+
+            <div class="member">
+                Md Shahid Iqbal
+            </div>
+
+            <div class="member">
+                Mullick Waliullah
+            </div>
+
+            <div class="member">
+                Zaid Imam
+            </div>
+
+            <div class="member">
+                Bikram Bera
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+                Swanirbhar<span>.</span>
+            </div>
+
+            <div class="footer-text">
+                © 2026 Swanirbhar. Built with ❤️ in India.
+            </div>
+
+            <div class="footer-links">
+
+                <a href="YOUR_GITHUB_LINK" target="_blank">
+                    GitHub
+                </a>
+
+                <a href="#">
+                    Documentation
+                </a>
+
+                <a href="#">
+                    Support
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>

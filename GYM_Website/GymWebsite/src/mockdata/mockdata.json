@@ -1,0 +1,299 @@
+{
+  "siteConfig": {
+    "siteName": "NEXUS GYM",
+    "tagline": "Where Strength, Discipline, and Results Come Together",
+    "logo": "/assets/images/logo.png",
+    "favicon": "/assets/images/favicon.ico",
+    "description": "NEXUS GYM is a premium yet budget-friendly gym in Kasinathpur, Kolkata. We offer modern equipment, expert trainers, and a motivating environment for beginners and pros alike.",
+    "keywords": "gym, fitness, Kasinathpur, Kolkata, Bishnupur, low budget gym, premium gym, bodybuilding, weight training"
+  },
+  "heroSection": {
+    "title": "Build Your Legacy",
+    "subtitle": "More Than Just a Gym — It's Where Strength, Discipline, and Results Come Together",
+    "backgroundImage": "/assets/images/hero-bg.jpg",
+    "primaryCTA": {
+      "label": "Start Your Journey",
+      "link": "/free-trial"
+    },
+    "secondaryCTA": {
+      "label": "Explore Facilities",
+      "link": "#facilities"
+    }
+  },
+  "stats": {
+    "yearsOfExcellence": 3,
+    "happyMembers": 1200,
+    "successRate": 95,
+    "totalTrainers": 12,
+    "achievementText": "Members have achieved remarkable transformations with our expert guidance and modern equipment"
+  },
+  "membershipPlans": [
+    {
+      "id": "basic",
+      "name": "Basic Plan",
+      "accessTime": "Standard Hours Only",
+      "is24x7": false,
+      "price": "₹799/month",
+      "features": [
+        "Standard Gym Access",
+        "Cardio & Weight Zone",
+        "Locker Room Access",
+        "Clean & Hygienic Environment"
+      ]
+    },
+    {
+      "id": "pro",
+      "name": "Pro Plan",
+      "accessTime": "Premium Access",
+      "is24x7": false,
+      "price": "₹1,199/month",
+      "features": [
+        "Full Gym Access",
+        "Access to All Zones",
+        "2 Free PT Sessions/Month",
+        "Progress Tracking",
+        "Premium Equipment Access"
+      ]
+    },
+    {
+      "id": "elite",
+      "name": "Elite Plan",
+      "accessTime": "Premium Access",
+      "is24x7": false,
+      "price": "₹1,799/month",
+      "features": [
+        "Full Gym Access",
+        "All Zones Access",
+        "Unlimited Group Classes",
+        "1-on-1 Personal Trainer",
+        "Nutrition Guidance",
+        "Live Progress Tracking",
+        "Priority Support"
+      ]
+    }
+  ],
+  "freeTrial": {
+    "enabled": true,
+    "sessionsOffered": 3,
+    "description": "Get 3 free training sessions with our expert coaches. Experience our world-class facilities and knowledgeable trainers before you commit.",
+    "ctaLabel": "Claim Your 3 Free Sessions"
+  },
+  "trainers": [
+    {
+      "id": "t1",
+      "name": "Coach Vikram",
+      "title": "Head Strength & Conditioning Coach",
+      "experience": "9+ years",
+      "expertise": ["Weight Training", "Bodybuilding", "Strength Conditioning"],
+      "image": "/assets/images/trainers/vikram.jpg",
+      "bio": "Vikram has transformed over 600 clients with his intense strength and conditioning programs. He specializes in pushing beginners and pros to their limits."
+    },
+    {
+      "id": "t2",
+      "name": "Coach Meera",
+      "title": "Functional & Cardio Specialist",
+      "experience": "7+ years",
+      "expertise": ["Functional Training", "Cardio", "Fat Loss"],
+      "image": "/assets/images/trainers/meera.jpg",
+      "bio": "Meera is an expert in high-intensity functional workouts and cardio training. Her sessions are designed to maximize fat burn and build endurance."
+    },
+    {
+      "id": "t3",
+      "name": "Coach Arjun",
+      "title": "Body Transformation Expert",
+      "experience": "8+ years",
+      "expertise": ["Body Transformation", "Nutrition", "Metabolic Conditioning"],
+      "image": "/assets/images/trainers/arjun-nexus.jpg",
+      "bio": "Arjun's holistic approach combines intense workouts with smart nutrition. He has helped hundreds achieve dramatic body transformations."
+    },
+    {
+      "id": "t4",
+      "name": "Coach Ritu",
+      "title": "Women's Fitness & Wellness Coach",
+      "experience": "6+ years",
+      "expertise": ["Women's Fitness", "Postnatal Wellness", "Flexibility"],
+      "image": "/assets/images/trainers/ritu.jpg",
+      "bio": "Ritu specializes in women's health and wellness, offering customized programs for all life stages from strength building to postnatal recovery."
+    }
+  ],
+  "facilities": {
+    "zones": [
+      {
+        "name": "Cardio Zone",
+        "icon": "FaHeartbeat",
+        "description": "State-of-the-art treadmills, ellipticals, and cycling machines for endless cardio options."
+      },
+      {
+        "name": "Functional Area",
+        "icon": "FaDumbbell",
+        "description": "Dedicated space for functional training with kettlebells, battle ropes, and TRX systems."
+      },
+      {
+        "name": "Weight Training Zone",
+        "icon": "FaWeightHanging",
+        "description": "Premium free weights, squat racks, and resistance machines for serious strength building."
+      }
+    ],
+    "amenities": [
+      "State-of-the-art Equipment",
+      "Spacious Workout Zones",
+      "Premium Locker Rooms",
+      "Air-conditioned Facility",
+      "Clean & Hygienic Environment",
+      "Prime Location in Kasinathpur"
+    ]
+  },
+  "classes": {
+    "title": "Group Fitness Classes",
+    "description": "Join our energetic community workouts designed to push your limits and keep you motivated.",
+    "classTypes": [
+      "Strength Training",
+      "HIIT (High Intensity Interval Training)",
+      "Functional Circuit",
+      "Boxing & Kickboxing",
+      "Core & Abs Blast"
+    ]
+  },
+  "nutrition": {
+    "isAvailable": true,
+    "title": "Complete Nutrition Guidance",
+    "description": "Our expert coaches provide personalized diet charts and nutrition advice to complement your workout regime.",
+    "includes": [
+      "Diet Planning",
+      "Calorie Tracking",
+      "Supplement Advice",
+      "Meal Prepping Tips"
+    ]
+  },
+  "technology": {
+    "title": "Smart Tracking & Progress Monitoring",
+    "description": "We use cutting-edge technology to track your real-time progress and keep you accountable.",
+    "features": [
+      "Real-time Performance Tracking",
+      "Body Composition Analysis",
+      "Progress Dashboard",
+      "Science-backed Workouts"
+    ],
+    "guarantee": "100% Results Focused"
+  },
+  "testimonials": [
+    {
+      "id": "test1",
+      "name": "Rahul D.",
+      "result": "Lost 15kg in 3 months",
+      "quote": "NEXUS GYM changed my life. The trainers are incredibly knowledgeable, and the equipment is top-notch. Best decision I ever made!",
+      "image": "/assets/images/testimonials/rahul-nexus.jpg"
+    },
+    {
+      "id": "test2",
+      "name": "Sneha R.",
+      "result": "Transformed Strength & Confidence",
+      "quote": "I was a beginner and felt intimidated, but the trainers at NEXUS made me feel at home. In 6 months, I've never been stronger or more confident.",
+      "image": "/assets/images/testimonials/sneha-nexus.jpg"
+    },
+    {
+      "id": "test3",
+      "name": "Amit K.",
+      "result": "Achieved Lean Muscle Gain",
+      "quote": "The strength training zone at NEXUS is world-class. With Coach Vikram's guidance, I gained 8kg of lean muscle in 5 months.",
+      "image": "/assets/images/testimonials/amit-nexus.jpg"
+    }
+  ],
+  "openingHours": {
+    "weekdays": {
+      "days": "Monday - Friday",
+      "time": "6:00 AM - 11:59 PM"
+    },
+    "saturday": {
+      "days": "Saturday",
+      "time": "6:00 AM - 11:59 PM"
+    },
+    "sunday": {
+      "days": "Sunday",
+      "time": "6:00 AM - 11:59 PM"
+    }
+  },
+  "contactInfo": {
+    "address": {
+      "street": "HGQ4+26M, Kalikapur Rd, Chotto Chandpur",
+      "area": "Bishnupur, Kasinathpur, Kalikapur",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "pincode": "700135",
+      "fullAddress": "NEXUS GYM, HGQ4+26M, Kalikapur Rd, Chotto Chandpur, Bishnupur, Kasinathpur, Kalikapur, Kolkata, West Bengal 700135"
+    },
+    "phone": "+91-98765-12345",
+    "email": "info@nexusgymkasinathpur.com",
+    "whatsappLink": "https://wa.me/919876512345?text=Hi%2C%20I%20want%20to%20know%20more%20about%20NEXUS%20GYM",
+    "inquiryForm": {
+      "fields": [
+        { "name": "name", "type": "text", "label": "Full Name", "required": true },
+        { "name": "email", "type": "email", "label": "Email Address", "required": true },
+        { "name": "phone", "type": "tel", "label": "Phone Number", "required": true },
+        { "name": "message", "type": "textarea", "label": "Your Message", "required": false }
+      ],
+      "submitLabel": "Send Inquiry",
+      "redirectToWhatsApp": true
+    }
+  },
+  "footer": {
+    "about": "NEXUS GYM is a premium yet budget-friendly fitness destination in Kasinathpur, Kolkata. We combine modern equipment, expert trainers, and a supportive community to help you achieve your fitness goals.",
+    "quickLinks": [
+      { "label": "About Us", "link": "/about" },
+      { "label": "Trainers", "link": "/trainers" },
+      { "label": "Membership", "link": "/membership" },
+      { "label": "Free Trial", "link": "/free-trial" },
+      { "label": "Contact", "link": "/contact" }
+    ],
+    "socialMedia": [
+      { "platform": "Facebook", "icon": "FaFacebook", "url": "https://facebook.com/nexusgymkasinathpur" },
+      { "platform": "Instagram", "icon": "FaInstagram", "url": "https://instagram.com/nexusgym_kasinathpur" },
+      { "platform": "YouTube", "icon": "FaYoutube", "url": "https://youtube.com/nexusgymkasinathpur" }
+    ],
+    "copyright": "© 2026 NEXUS GYM. All Rights Reserved."
+  },
+  "gallery": {
+    "title": "Fuel Your Motivation",
+    "description": "Take a glimpse inside our premium facility and see what makes NEXUS GYM the preferred choice in Kasinathpur.",
+    "images": [
+      { "url": "/assets/images/gallery/gym-1.jpg", "caption": "Modern Cardio Zone" },
+      { "url": "/assets/images/gallery/gym-2.jpg", "caption": "Functional Training Area" },
+      { "url": "/assets/images/gallery/gym-3.jpg", "caption": "Weight Training Floor" },
+      { "url": "/assets/images/gallery/gym-4.jpg", "caption": "Motivated Members" },
+      { "url": "/assets/images/gallery/gym-5.jpg", "caption": "Clean & Spacious" },
+      { "url": "/assets/images/gallery/gym-6.jpg", "caption": "Expert Trainers in Action" }
+    ]
+  },
+  "whyChooseUs": {
+    "title": "Why NEXUS GYM?",
+    "description": "We combine premium quality with budget-friendly pricing to deliver the best fitness experience in Kasinathpur.",
+    "reasons": [
+      {
+        "icon": "FaDollarSign",
+        "title": "Low Budget / Premium Quality",
+        "description": "Experience world-class facilities and equipment at an affordable price point."
+      },
+      {
+        "icon": "FaUsers",
+        "title": "Expert Trainers",
+        "description": "Our knowledgeable coaches guide you every step of the way, whether you're a beginner or a pro."
+      },
+      {
+        "icon": "FaClock",
+        "title": "Extended Hours",
+        "description": "Open from 6 AM to midnight, 7 days a week, to fit your busy schedule."
+      },
+      {
+        "icon": "FaThumbsUp",
+        "title": "Supportive Community",
+        "description": "Join a motivating and encouraging community that pushes you to achieve your best."
+      }
+    ]
+  },
+  "socialFeed": {
+    "title": "Follow Our Journey",
+    "description": "Stay connected with us on social media for daily motivation, fitness tips, and member success stories.",
+    "hashtags": ["#NEXUSGYM", "#FitnessKasinathpur", "#KolkataGym", "#StrengthDisciplineResults"],
+    "instagramHandle": "@nexusgym_kasinathpur"
+  }
+}
