@@ -1,0 +1,44 @@
+/* src/index.css */
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bg: #0a0c0e;
+  --color-bg-2: #101418;
+  --color-card: #151a1f;
+  --color-card-2: #1b2229;
+  --color-accent: #ff5a1f;
+  --color-accent-2: #ffb01f;
+  --color-lime: #c9f31d;
+  --color-wa: #25d366;
+
+  /* Ye do line PEHLE MISSING thi — isliye text-muted/text-dim kaam nahi kar rahe the */
+  --color-muted: #9aa5ad;
+  --color-dim: #6b757d;
+
+  /* Fonts */
+  --font-display: "Bebas Neue", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Max width */
+  --max-width-wrap: 1180px;
+}
+
+/* Base styles */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: #f2f5f7;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}

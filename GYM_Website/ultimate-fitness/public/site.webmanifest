@@ -1,0 +1,21 @@
+{
+  "name": "Ultimate Fitness Centre Newtown",
+  "short_name": "Ultimate Fitness",
+  "description": "Best gym in Newtown, Kolkata — personal training, weight training, cycling & nutrition consulting.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0c0e",
+  "theme_color": "#0a0c0e",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
