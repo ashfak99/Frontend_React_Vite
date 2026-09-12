@@ -1,0 +1,101 @@
+# ================================
+# Dependencies
+# ================================
+node_modules
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# ================================
+# Production Build
+# ================================
+dist
+dist-ssr
+build
+out
+*.local
+
+# ================================
+# Logs
+# ================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm
+
+# ================================
+# Environment Variables
+# ================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# ================================
+# Editor Directories & Files
+# ================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.history
+*.tmp
+
+# ================================
+# OS Generated Files
+# ================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ================================
+# Testing & Coverage
+# ================================
+coverage
+.nyc_output
+*.lcov
+
+# ================================
+# Cache & Temp Files
+# ================================
+.cache
+.parcel-cache
+.eslintcache
+.stylelintcache
+.temp
+.tmp
+*.pid
+*.seed
+*.pid.lock
+
+# ================================
+# Package Manager Locks (keep at least one, usually package-lock.json)
+# ================================
+# yarn.lock
+# pnpm-lock.yaml
+# bun.lockb
+
+# ================================
+# Misc
+# ================================
+*.tgz
+*.tar.gz
+.vite
+.vite-inspect
