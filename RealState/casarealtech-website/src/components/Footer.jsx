@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { 
   FaHome, 
   FaPhoneAlt, 
@@ -10,14 +9,14 @@ import {
   FaYoutube 
 } from 'react-icons/fa';
 
-const Footer = () => {
-  // Quick Links ka data
+const Footer = ({ setCurrentPage }) => {
+  // Quick Links ka data (path → page id)
   const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Properties', path: '/properties' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Home', page: 'home' },
+    { name: 'Properties', page: 'properties' },
+    { name: 'About Us', page: 'about' },
+    { name: 'Services', page: 'services' },
+    { name: 'Contact', page: 'contact' },
   ];
 
   // Social links ka data
@@ -27,6 +26,14 @@ const Footer = () => {
     { icon: <FaLinkedinIn />, url: 'https://linkedin.com', name: 'LinkedIn' },
     { icon: <FaYoutube />, url: 'https://youtube.com', name: 'YouTube' },
   ];
+
+  // Navigate helper
+  const goTo = (page) => {
+    if (setCurrentPage) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <footer className="bg-[#0B1B32] text-gray-300 pt-16 pb-6">
@@ -38,7 +45,10 @@ const Footer = () => {
           
           {/* Column 1: Logo & About */}
           <div>
-            <Link to="/" className="flex items-center gap-3 mb-5 text-white">
+            <button 
+              onClick={() => goTo('home')} 
+              className="flex items-center gap-3 mb-5 text-white text-left"
+            >
               <div className="text-amber-500 text-3xl">
                 <FaHome />
               </div>
@@ -48,7 +58,7 @@ const Footer = () => {
                   Private Limited
                 </p>
               </div>
-            </Link>
+            </button>
             <p className="text-sm text-gray-400 leading-relaxed mb-6">
               Your trusted partner for premium real estate solutions in Kolkata. 
               We help you find the perfect property for your needs.
@@ -64,12 +74,12 @@ const Footer = () => {
             <ul className="space-y-3 text-sm mt-6">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link 
-                    to={link.path} 
-                    className="hover:text-amber-500 hover:pl-2 transition-all duration-300 inline-block"
+                  <button 
+                    onClick={() => goTo(link.page)}
+                    className="hover:text-amber-500 hover:pl-2 transition-all duration-300 inline-block text-left"
                   >
                     {link.name}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -151,12 +161,18 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
           <p>© 2025 Casa Realtech Private Limited. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link to="/privacy" className="hover:text-amber-500 transition">
+            <button 
+              onClick={() => goTo('privacy')}
+              className="hover:text-amber-500 transition"
+            >
               Privacy Policy
-            </Link>
-            <Link to="/terms" className="hover:text-amber-500 transition">
+            </button>
+            <button 
+              onClick={() => goTo('terms')}
+              className="hover:text-amber-500 transition"
+            >
               Terms & Conditions
-            </Link>
+            </button>
           </div>
         </div>
       </div>

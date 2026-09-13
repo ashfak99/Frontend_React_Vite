@@ -1,6 +1,14 @@
 import { FaArrowRight } from 'react-icons/fa';
 
-const Hero = () => {
+const Hero = ({ setCurrentPage }) => {
+  // Navigate helper
+  const goTo = (page) => {
+    if (setCurrentPage) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative w-full min-h-[85vh] flex items-center justify-center lg:justify-start">
       {/* Background Image with Overlay */}
@@ -37,10 +45,16 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-            <button className="w-full sm:w-auto bg-amber-500 text-[#0B1B32] px-8 py-4 rounded-md font-semibold hover:bg-amber-400 transition flex items-center justify-center gap-2">
+            <button 
+              onClick={() => goTo('properties')}
+              className="w-full sm:w-auto bg-amber-500 text-[#0B1B32] px-8 py-4 rounded-md font-semibold hover:bg-amber-400 transition flex items-center justify-center gap-2"
+            >
               Explore Properties <FaArrowRight />
             </button>
-            <button className="w-full sm:w-auto border border-white text-white px-8 py-4 rounded-md font-semibold hover:bg-white hover:text-[#0B1B32] transition flex items-center justify-center gap-2">
+            <button 
+              onClick={() => goTo('contact')}
+              className="w-full sm:w-auto border border-white text-white px-8 py-4 rounded-md font-semibold hover:bg-white hover:text-[#0B1B32] transition flex items-center justify-center gap-2"
+            >
               Get Free Consultation
             </button>
           </div>

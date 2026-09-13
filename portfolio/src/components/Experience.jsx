@@ -6,21 +6,15 @@ const Experience = () => {
   const timelineData = [
     {
       icon: <FaGraduationCap />,
-      title: "B.Tech (3rd Year)",
+      title: "Diploma in Computer Engineering",
+      subtitle: "Jamia Millia Islamia",
+      date: "Jan 2022 - Jan 2025",
+    },
+    {
+      icon: <FaGraduationCap />,
+      title: "B.Tech in Computer Science & Engineering",
       subtitle: "Aliah University, Kolkata",
-      date: "2024 - Present",
-    },
-    {
-      icon: <FaTerminal />,
-      title: "SIH Internal Round",
-      subtitle: "Team Lead - Six Cipher",
-      date: "2025",
-    },
-    {
-      icon: <FaCode />,
-      title: "Hackathon Participant",
-      subtitle: "Multiple Hackathons",
-      date: "2024 - Present",
+      date: "July 2025 - Present",
     },
     {
       icon: <FaBookOpen />,
@@ -34,8 +28,7 @@ const Experience = () => {
   const goals = [
     "SIH Team Lead",
     "AI Engineer",
-    "Product Company (C++ + Node.js)",
-    "50 LPA+ (India / Abroad)"
+    "Product Company (C++ + Node.js)"
   ];
 
   return (

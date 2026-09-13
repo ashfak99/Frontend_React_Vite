@@ -1,6 +1,6 @@
 import { FaBuilding, FaMapMarkedAlt, FaChartLine, FaArrowRight } from 'react-icons/fa';
 
-const Services = () => {
+const Services = ({ setCurrentPage }) => {
   // Services ka data array (taaki code clean rahe aur easily map ho sake)
   const servicesData = [
     {
@@ -28,6 +28,14 @@ const Services = () => {
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
     }
   ];
+
+  // Navigate helper
+  const goTo = (page) => {
+    if (setCurrentPage) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="py-20 bg-gray-50">
@@ -76,10 +84,13 @@ const Services = () => {
                   {service.description}
                 </p>
                 
-                {/* Learn More Link */}
-                <a href="#" className="text-amber-500 font-semibold text-sm flex items-center gap-2 hover:gap-3 transition-all w-max">
+                {/* Learn More Button */}
+                <button 
+                  onClick={() => goTo('services')}
+                  className="text-amber-500 font-semibold text-sm flex items-center gap-2 hover:gap-3 transition-all w-max"
+                >
                   Learn More <FaArrowRight />
-                </a>
+                </button>
               </div>
             </div>
           ))}

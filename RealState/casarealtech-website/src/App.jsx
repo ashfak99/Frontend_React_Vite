@@ -1,37 +1,62 @@
-import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
 
-// Placeholder pages (baad mein banayenge)
-const Properties = () => <div className="p-20 text-center">Properties Page</div>;
-const About = () => <div className="p-20 text-center">About Page</div>;
-const Services = () => <div className="p-20 text-center">Services Page</div>;
-const Contact = () => <div className="p-20 text-center">Contact Page</div>;
+import PropertiesPage from './pages/PropertiesPage';
+import AboutPage from './pages/AboutPage';
+import ServicesPage from './pages/ServicesPage';
+import ContactPage from './pages/ContactPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
 
 function App() {
-  return (
-    <div className="font-sans text-gray-800 relative">
-      {/* Navbar - Har page par dikhega */}
-      <Navbar />
+  const [currentPage, setCurrentPage] = useState('home');
 
-      {/* Main Content - Route ke hisaab se change hoga */}
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <Home setCurrentPage={setCurrentPage} />;
+
+      case 'properties':
+        return <PropertiesPage setCurrentPage={setCurrentPage} />;
+
+      case 'about':
+        return <AboutPage setCurrentPage={setCurrentPage} />;
+
+      case 'services':
+        return <ServicesPage setCurrentPage={setCurrentPage} />;
+
+      case 'contact':
+        return <ContactPage setCurrentPage={setCurrentPage} />;
+
+      case 'privacy':
+        return <PrivacyPage />;
+
+      case 'terms':
+        return <TermsPage />;
+
+      default:
+        return <Home setCurrentPage={setCurrentPage} />;
+    }
+  };
+
+  return (
+    <div className="font-sans text-gray-800 relative min-h-screen">
+      <Navbar
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+
       <main className="min-h-screen">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="properties" element={<Properties />} />
-          <Route path="about" element={<About />} />
-          <Route path="services" element={<Services />} />
-          <Route path="contact" element={<Contact />} />
-        </Routes>
+        {renderPage()}
       </main>
 
-      {/* Footer - Har page par dikhega */}
-      <Footer />
+      <Footer setCurrentPage={setCurrentPage} />
 
-      {/* Floating WhatsApp Button - Har page par bottom-right corner par dikhega */}
+      {/* Floating WhatsApp Button */}
       <a
         href="https://wa.me/919830334567"
         target="_blank"

@@ -1,6 +1,6 @@
 import { FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
 
-const FeaturedProperties = () => {
+const FeaturedProperties = ({ setCurrentPage }) => {
   const properties = [
     {
       id: 1,
@@ -36,6 +36,14 @@ const FeaturedProperties = () => {
     }
   ];
 
+  // Navigate helper
+  const goTo = (page) => {
+    if (setCurrentPage) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -54,12 +62,12 @@ const FeaturedProperties = () => {
             </p>
           </div>
           
-          <a 
-            href="/properties" 
+          <button 
+            onClick={() => goTo('properties')}
             className="text-[#0B1B32] font-semibold text-sm flex items-center gap-2 hover:text-amber-500 hover:gap-3 transition-all w-max"
           >
             View All Properties <FaArrowRight />
-          </a>
+          </button>
         </div>
 
         {/* Properties Grid */}
@@ -101,7 +109,10 @@ const FeaturedProperties = () => {
                 </p>
                 
                 {/* View Details Button */}
-                <button className="w-full bg-[#0B1B32] text-white py-3 rounded-md text-sm font-semibold hover:bg-amber-500 hover:text-[#0B1B32] transition-colors flex items-center justify-center gap-2">
+                <button 
+                  onClick={() => goTo('properties')}
+                  className="w-full bg-[#0B1B32] text-white py-3 rounded-md text-sm font-semibold hover:bg-amber-500 hover:text-[#0B1B32] transition-colors flex items-center justify-center gap-2"
+                >
                   View Details <FaArrowRight />
                 </button>
               </div>

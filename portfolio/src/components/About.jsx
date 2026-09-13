@@ -9,13 +9,17 @@ const About = () => {
     { name: "Node.js", icon: "🟢" },
     { name: "JavaScript", icon: "🟨" },
     { name: "C++", icon: "🔵" },
+    { name: "React", icon: "⚛️" },
     { name: "MySQL", icon: "🐬" },
     { name: "MongoDB", icon: "🍃" },
     { name: "SQLite", icon: "🗄️" },
     { name: "PostgreSQL", icon: "🐘" },
+    { name: "Redis", icon: "🔺" },
     { name: "Docker", icon: "🐳" },
     { name: "Git", icon: "🔴" },
     { name: "Linux", icon: "🐧" },
+    { name: "Kotlin", icon: "🟣" },
+    { name: "Tailwind", icon: "🎨" },
   ];
 
   return (
@@ -34,18 +38,18 @@ const About = () => {
           </h2>
           
           <p className="text-gray-600 mb-4 leading-relaxed">
-            I'm a B.Tech student at Aliah University, Kolkata, with a strong interest in backend development and AI. I love working on various projects ranging from web applications to AI-powered systems.
+            I'm a B.Tech Computer Science & Engineering student at <span className="font-semibold text-gray-800">Aliah University, Kolkata</span>, after completing my Diploma in Computer Engineering from <span className="font-semibold text-gray-800">Jamia Millia Islamia</span>. I have a strong passion for backend development, AI and building real-world systems.
           </p>
           
           <p className="text-gray-600 mb-8 leading-relaxed">
-            I'm passionate about solving real-world problems, participating in hackathons and continuously learning new technologies.
+            I love solving real-world problems, participating in hackathons like <span className="font-semibold text-gray-800">Smart India Hackathon</span>, and continuously learning new technologies — from distributed systems and rate limiters to AI-powered privacy tools.
           </p>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mb-10">
             <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
               <FaCode className="text-blue-500 mx-auto mb-2 text-xl" />
-              <h3 className="text-2xl font-bold">3+</h3>
+              <h3 className="text-2xl font-bold">4+</h3>
               <p className="text-xs text-gray-500">Projects Built</p>
             </div>
             <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
@@ -55,7 +59,7 @@ const About = () => {
             </div>
             <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center">
               <FaClock className="text-blue-500 mx-auto mb-2 text-xl" />
-              <h3 className="text-2xl font-bold">1+</h3>
+              <h3 className="text-2xl font-bold">3+</h3>
               <p className="text-xs text-gray-500">Years of Coding</p>
             </div>
           </div>
@@ -70,7 +74,8 @@ const About = () => {
         <div id='skills' className="md:w-1/2 bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
           <div className="flex items-center gap-2 mb-2">
             <FaCode className="text-blue-600 text-xl" />
-            <h2 className="text-2xl font-bold">Tech Stack</h2>
+            {/* ✅ Title color blue kar diya */}
+            <h2 className="text-2xl font-bold text-blue-600">Tech Stack</h2>
           </div>
           <p className="text-gray-500 text-sm mb-6">My Technologies & Tools</p>
 

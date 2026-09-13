@@ -58,7 +58,10 @@ const WhyChooseUs = () => {
               }`}
             >
               {/* Icon Circle */}
-              <div className="w-16 h-16 rounded-full border-2 border-amber-500 flex items-center justify-center text-amber-500 text-2xl mb-6">
+              <div 
+                className="w-16 h-16 rounded-full border-2 border-amber-500 flex items-center justify-center text-amber-500 text-2xl mb-6"
+                aria-hidden="true"
+              >
                 {feature.icon}
               </div>
 

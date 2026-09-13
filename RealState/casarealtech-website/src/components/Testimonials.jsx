@@ -54,7 +54,7 @@ const Testimonials = () => {
               className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 relative hover:shadow-lg transition-shadow duration-300 flex flex-col"
             >
               {/* Quote Icon (Background) */}
-              <FaQuoteLeft className="absolute top-6 right-6 text-4xl text-gray-100" />
+              <FaQuoteLeft className="absolute top-6 right-6 text-4xl text-gray-100" aria-hidden="true" />
 
               {/* Client Info (Top) */}
               <div className="flex items-center gap-4 mb-6 relative z-10">
@@ -62,15 +62,19 @@ const Testimonials = () => {
                   src={review.image} 
                   alt={review.name} 
                   className="w-14 h-14 rounded-full object-cover border-2 border-amber-500"
+                  loading="lazy"
                 />
                 <div>
                   <h3 className="font-bold text-[#0B1B32]">{review.name}</h3>
                   <p className="text-xs text-gray-500">{review.role}</p>
                   
                   {/* Star Rating */}
-                  <div className="flex text-amber-500 text-xs mt-1 gap-1">
+                  <div 
+                    className="flex text-amber-500 text-xs mt-1 gap-1"
+                    aria-label={`${review.rating} out of 5 stars`}
+                  >
                     {[...Array(review.rating)].map((_, i) => (
-                      <FaStar key={i} />
+                      <FaStar key={i} aria-hidden="true" />
                     ))}
                   </div>
                 </div>

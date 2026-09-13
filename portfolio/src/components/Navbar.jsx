@@ -10,11 +10,19 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full bg-[#0B1120]/90 backdrop-blur-md border-b border-[#233554]">
       <nav className="flex justify-between items-center px-4 md:px-16 py-3 max-w-7xl mx-auto relative">
         
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="text-blue-500 text-2xl font-bold">🕊️</div>
-          <span className="text-xl font-bold tracking-wide">Ashfak Alam</span>
-        </div>
+        {/* Logo — Clickable */}
+        <a 
+          href="#home" 
+          onClick={() => setIsOpen(false)}
+          className="flex items-center gap-2 cursor-pointer group"
+        >
+          <div className="text-blue-500 text-2xl font-bold group-hover:scale-110 transition-transform duration-300">
+            🕊️
+          </div>
+          <span className="text-xl font-bold tracking-wide text-white group-hover:text-blue-500 transition-colors duration-300">
+            Ashfak Alam
+          </span>
+        </a>
 
         {/* Desktop Links (Hidden on Mobile) */}
         <ul className="hidden md:flex space-x-8 text-sm text-gray-300">

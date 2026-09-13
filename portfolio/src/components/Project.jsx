@@ -2,35 +2,39 @@ import React from 'react';
 import { FaArrowRight, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const Projects = () => {
-  // Projects ka data (Screenshot ke hisaab se)
+  // Projects ka data (GitHub repos ke hisaab se)
   const projectsData = [
     {
-      title: "Swanirbhar",
-      subtitle: "On-Premise Agentic AI Workbench",
-      desc: "A secure, air-gapped AI workbench for PSU, Defence and industrial engineers with multimodal support, RAG and agentic workflow.",
-      tech: ["PySide6", "FastAPI", "LangChain", "+2"],
-      icon: "🕊️" // Icon ke liye emoji ya image use kar sakte ho
+      title: "EnhanceSkills",
+      subtitle: "Android Skill Tracking App",
+      desc: "An Android application built with Kotlin and Gradle to help users enhance and track their skills efficiently.",
+      tech: ["Kotlin", "Android", "Gradle"],
+      icon: "📱",
+      github: "https://github.com/ashfak99/EnhanceSkills"
     },
     {
-      title: "FastAPI Todo",
-      subtitle: "REST API with Testing",
-      desc: "A simple yet robust Todo API built with FastAPI, using SQLite and pytest for testing.",
-      tech: ["Python", "FastAPI", "SQLite", "+1"],
-      icon: "✅"
+      title: "Rate-Limiter",
+      subtitle: "Distributed Rate Limiter Middleware",
+      desc: "A high-performance, distributed rate limiter middleware for Node.js using Redis, implementing the Sliding Window Log algorithm for precise request limiting.",
+      tech: ["Node.js", "Redis", "Express.js"],
+      icon: "⏱️",
+      github: "https://github.com/ashfak99/Rate-Limiter"
     },
     {
-      title: "Nexus Gym",
-      subtitle: "Fitness Web App",
-      desc: "A modern gym website with a clean UI, responsive design and smooth user experience.",
-      tech: ["React", "Vite", "Tailwind CSS", "+1"],
-      icon: "🏋️"
+      title: "Face-Blur-System",
+      subtitle: "AI Privacy Protection Tool",
+      desc: "A Streamlit web app that detects and blurs faces in images using MediaPipe and OpenCV, with adjustable blur intensity and real-time preview.",
+      tech: ["Python", "Streamlit", "OpenCV", "MediaPipe"],
+      icon: "🔒",
+      github: "https://github.com/ashfak99/Face-Blur-System"
     },
     {
-      title: "IQRA_AI",
-      subtitle: "Offline Quran & Hadith Search",
-      desc: "A React Native app for semantic search of Quran and Hadith, fully offline with no server cost.",
-      tech: ["React Native", "SQLite", "Semantic Search"],
-      icon: "📖"
+      title: "Frontend Projects",
+      subtitle: "React + Vite Web Apps",
+      desc: "A collection of modern frontend projects built with React and Vite, including a fully responsive gym website and a personal portfolio.",
+      tech: ["React", "Vite", "Tailwind CSS"],
+      icon: "⚛️",
+      github: "https://github.com/ashfak99/Frontend_React_Vite"
     }
   ];
 
@@ -52,7 +56,12 @@ const Projects = () => {
             </p>
           </div>
           
-          <a href="#" className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-2 transition">
+          <a 
+            href="https://github.com/ashfak99" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-2 transition"
+          >
             View All Projects <FaArrowRight size={12} />
           </a>
         </div>
@@ -70,7 +79,12 @@ const Projects = () => {
                   <div className="text-3xl bg-[#0B1120] p-2 rounded-lg border border-[#233554]">
                     {project.icon}
                   </div>
-                  <a href="#" className="text-gray-500 hover:text-blue-400 transition">
+                  <a 
+                    href={project.github} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-500 hover:text-blue-400 transition"
+                  >
                     <FaExternalLinkAlt size={14} />
                   </a>
                 </div>
@@ -100,7 +114,12 @@ const Projects = () => {
                 </div>
 
                 {/* View Project Link */}
-                <a href="#" className="text-blue-400 text-xs font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-300">
+                <a 
+                  href={project.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 text-xs font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-300"
+                >
                   View Project <FaArrowRight size={10} />
                 </a>
               </div>

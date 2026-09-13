@@ -5,13 +5,13 @@ import FeaturedProperties from '../components/FeaturedProperties';
 import Testimonials from '../components/Testimonials';
 import ContactSection from '../components/ContactSection';
 
-const Home = () => {
+const Home = ({ setCurrentPage }) => {
   return (
     <div>
-      <Hero />
-      <Services />
-      <WhyChooseUs />
-      <FeaturedProperties />
+      <Hero setCurrentPage={setCurrentPage} />
+      <Services setCurrentPage={setCurrentPage} />
+      <WhyChooseUs setCurrentPage={setCurrentPage} />
+      <FeaturedProperties setCurrentPage={setCurrentPage} />
       <Testimonials />
       <ContactSection />
     </div>

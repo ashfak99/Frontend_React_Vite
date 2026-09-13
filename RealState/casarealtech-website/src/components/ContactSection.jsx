@@ -24,7 +24,10 @@ const ContactSection = () => {
           
           {/* LEFT SIDE: Inquiry Form */}
           <div className="bg-gray-50 p-8 rounded-xl border border-gray-200">
-            <form className="space-y-5">
+            <form 
+              className="space-y-5"
+              onSubmit={(e) => e.preventDefault()}
+            >
               {/* Full Name */}
               <div className="relative">
                 <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -127,14 +130,14 @@ const ContactSection = () => {
               </ul>
             </div>
 
-            {/* Google Map Embed (FIXED) */}
+            {/* Google Map Embed */}
             <div className="rounded-xl overflow-hidden shadow-md h-64 md:h-72 w-full border border-gray-200">
               <iframe 
                 src="https://www.google.com/maps?q=Ecospace+Business+Tower,+Newtown,+Kolkata&output=embed"
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
-                allowFullScreen="" 
+                allowFullScreen
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Casa Realtech Office Location"
