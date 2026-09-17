@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
-import Photo from '../assets/Ashfak_Alam.webp'
+import Photo from '../assets/ashfak.png'
 
 const Hero = () => {
   return (

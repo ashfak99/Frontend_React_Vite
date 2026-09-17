@@ -8,6 +8,9 @@ const Contact = () => {
     message: ''
   });
 
+const [loading, setLoading] = useState(false);
+const [sent, setSent] = useState(false);
+
   // Yaha apni details daalo
   const myEmail = "ashfakalam8423@gmail.com";
   const myWhatsApp = "919934648423"; // Country code ke sath, bina '+' ke
@@ -16,30 +19,42 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    const { name, email, message } = formData;
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // 1. WhatsApp Message Format
-    const waText = `Hi Ashfak, I saw your portfolio.%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
-    const waUrl = `https://wa.me/${myWhatsApp}?text=${waText}`;
+  setLoading(true);
 
-    // 2. Email Format (mailto)
-    const mailSubject = `Portfolio Contact from ${name}`;
-    const mailBody = `Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
-    const mailUrl = `mailto:${myEmail}?subject=${mailSubject}&body=${mailBody}`;
+  const { name, email, message } = formData;
 
-    // 3. Open WhatsApp & Email
-    window.open(waUrl, '_blank');
-    
-    setTimeout(() => {
-      window.location.href = mailUrl;
-    }, 1500);
+  try {
+    const response = await fetch("https://formspree.io/f/xbgljqrz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        message: message,
+      }),
+    });
 
-    // Reset Form
-    setFormData({ name: '', email: '', message: '' });
-  };
+    if (response.ok) {
+      setFormData({ name: "", email: "", message: "" });
+      setSent(true);
+
+      // 3 second baad button wapas normal
+      setTimeout(() => setSent(false), 3000);
+    } else {
+      alert("Something happend wrong");
+    }
+  } catch (error) {
+    alert("Network error!");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <section id="contact" className="bg-[#0B1120] text-white py-16 md:py-24">
@@ -169,12 +184,21 @@ const Contact = () => {
                 ></textarea>
               </div>
               
-              <button 
-                type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                Send Message <FaPaperPlane size={14} />
-              </button>
+             <button
+  type="submit"
+  disabled={loading || sent}
+  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+>
+  {loading ? (
+    "Sending..."
+  ) : sent ? (
+    "Message Sent ✅"
+  ) : (
+    <>
+      Send Message <FaPaperPlane size={14} />
+    </>
+  )}
+</button>
             </form>
           </div>
 
