@@ -1,0 +1,2737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#000000"
+    >
+
+    <title>ContribPilot — Contribute with Confidence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =========================================================
+           01. RESET
+        ========================================================== */
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background: #000;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            background: #000;
+            color: #fff;
+
+            font-family:
+                "Inter",
+                "Space Grotesk",
+                Arial,
+                sans-serif;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            text-rendering: optimizeLegibility;
+        }
+
+        ::selection {
+            background: rgba(212, 160, 23, 0.28);
+            color: #fff;
+        }
+
+
+        /* =========================================================
+           02. GLOBAL AMBIENT BACKGROUND
+        ========================================================== */
+
+        .ambient-background {
+            position: fixed;
+            inset: 0;
+
+            z-index: 0;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    ellipse 75% 60% at 50% 110%,
+                    rgba(190, 130, 25, 0.11),
+                    transparent 72%
+                ),
+                radial-gradient(
+                    ellipse 55% 45% at 10% 15%,
+                    rgba(160, 105, 15, 0.06),
+                    transparent 70%
+                ),
+                radial-gradient(
+                    ellipse 50% 45% at 90% 75%,
+                    rgba(130, 85, 12, 0.05),
+                    transparent 70%
+                ),
+                radial-gradient(
+                    ellipse 90% 40% at 50% -10%,
+                    rgba(255, 200, 90, 0.035),
+                    transparent 75%
+                ),
+                #000;
+        }
+
+        .ambient-background::before {
+            content: "";
+
+            position: absolute;
+            inset: -25%;
+
+            background:
+                radial-gradient(
+                    circle at 20% 25%,
+                    rgba(255, 210, 90, 0.05),
+                    transparent 24%
+                ),
+                radial-gradient(
+                    circle at 78% 78%,
+                    rgba(210, 150, 35, 0.045),
+                    transparent 26%
+                ),
+                radial-gradient(
+                    circle at 50% 50%,
+                    rgba(255, 220, 140, 0.02),
+                    transparent 60%
+                );
+
+            filter: blur(100px);
+
+            animation:
+                ambientDrift
+                26s
+                ease-in-out
+                infinite
+                alternate;
+        }
+
+        @keyframes ambientDrift {
+
+            0% {
+                transform: translate3d(-2%, -1%, 0) scale(1);
+            }
+
+            100% {
+                transform: translate3d(2%, 1%, 0) scale(1.06);
+            }
+        }
+
+
+        /* =========================================================
+           02B. FLOATING GLASS ORBS
+        ========================================================== */
+
+        .glass-orbs {
+            position: fixed;
+            inset: 0;
+
+            z-index: 1;
+
+            overflow: hidden;
+
+            pointer-events: none;
+        }
+
+        .glass-orb {
+            position: absolute;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 32% 26%,
+                    rgba(255, 245, 210, 0.16) 0%,
+                    rgba(255, 225, 150, 0.07) 22%,
+                    rgba(150, 95, 20, 0.05) 52%,
+                    rgba(0, 0, 0, 0) 78%
+                );
+
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.16),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+                inset -8px -12px 40px rgba(0, 0, 0, 0.35),
+                inset 8px 12px 40px rgba(255, 220, 140, 0.06),
+                0 30px 90px rgba(0, 0, 0, 0.55);
+
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+
+            opacity: 0.75;
+        }
+
+        .glass-orb::after {
+            content: "";
+
+            position: absolute;
+
+            top: 14%;
+            left: 22%;
+
+            width: 34%;
+            height: 22%;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    ellipse,
+                    rgba(255, 255, 255, 0.42),
+                    rgba(255, 255, 255, 0) 70%
+                );
+
+            filter: blur(6px);
+
+            opacity: 0.7;
+        }
+
+        .glass-orb.one {
+            top: 8%;
+            left: 6%;
+
+            width: 340px;
+            height: 340px;
+
+            animation:
+                orbFloatOne
+                22s
+                ease-in-out
+                infinite
+                alternate;
+        }
+
+        .glass-orb.two {
+            top: 55%;
+            right: 4%;
+
+            width: 280px;
+            height: 280px;
+
+            opacity: 0.6;
+
+            animation:
+                orbFloatTwo
+                28s
+                ease-in-out
+                infinite
+                alternate;
+        }
+
+        .glass-orb.three {
+            bottom: 6%;
+            left: 32%;
+
+            width: 220px;
+            height: 220px;
+
+            opacity: 0.5;
+
+            animation:
+                orbFloatThree
+                32s
+                ease-in-out
+                infinite
+                alternate;
+        }
+
+        @keyframes orbFloatOne {
+
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate3d(60px, 40px, 0) scale(1.08);
+            }
+        }
+
+        @keyframes orbFloatTwo {
+
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate3d(-70px, -50px, 0) scale(1.1);
+            }
+        }
+
+        @keyframes orbFloatThree {
+
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate3d(50px, -40px, 0) scale(1.05);
+            }
+        }
+
+
+        /* =========================================================
+           03. SUBTLE GOLD LIGHT
+        ========================================================== */
+
+        .ambient-light {
+            position: fixed;
+
+            width: 42vw;
+            height: 42vw;
+
+            min-width: 260px;
+            min-height: 260px;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            filter: blur(130px);
+
+            opacity: 0.08;
+
+            z-index: 1;
+        }
+
+        .ambient-light.one {
+            top: -22%;
+            left: -15%;
+
+            background: #d4a017;
+
+            animation:
+                lightOne
+                28s
+                ease-in-out
+                infinite
+                alternate;
+        }
+
+        .ambient-light.two {
+            right: -18%;
+            bottom: -25%;
+
+            background: #8a5a12;
+
+            opacity: 0.065;
+
+            animation:
+                lightTwo
+                34s
+                ease-in-out
+                infinite
+                alternate;
+        }
+
+        @keyframes lightOne {
+
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(70px, 50px, 0) scale(1.08);
+            }
+        }
+
+        @keyframes lightTwo {
+
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-70px, -50px, 0) scale(1.08);
+            }
+        }
+
+
+        /* =========================================================
+           04. VERY SUBTLE GRID
+        ========================================================== */
+
+        .grid {
+            position: fixed;
+            inset: 0;
+
+            z-index: 2;
+
+            pointer-events: none;
+
+            background-image:
+                linear-gradient(
+                    rgba(255, 220, 140, 0.018) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255, 220, 140, 0.018) 1px,
+                    transparent 1px
+                );
+
+            background-size: 72px 72px;
+
+            mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    #000 18%,
+                    transparent 78%
+                );
+
+            -webkit-mask-image:
+                radial-gradient(
+                    ellipse at center,
+                    #000 18%,
+                    transparent 78%
+                );
+        }
+
+
+        /* =========================================================
+           04B. GLOBAL GLASS GRAIN
+        ========================================================== */
+
+        .glass-grain {
+            position: fixed;
+            inset: 0;
+
+            z-index: 3;
+
+            pointer-events: none;
+
+            opacity: 0.055;
+
+            mix-blend-mode: overlay;
+
+            background-image:
+                url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'>\
+<filter id='n'>\
+<feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/>\
+<feColorMatrix type='saturate' values='0'/>\
+</filter>\
+<rect width='100%25' height='100%25' filter='url(%23n)'/>\
+</svg>");
+        }
+
+
+        /* =========================================================
+           05. SCENE CONTAINER
+        ========================================================== */
+
+        .scene-container {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 4;
+
+            perspective: 1100px;
+            perspective-origin: 50% 50%;
+
+            transform-style: preserve-3d;
+
+            overflow: visible;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           06. 3D SCENE
+        ========================================================== */
+
+        .scene {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform-style: preserve-3d;
+
+            pointer-events: none;
+
+            white-space: nowrap;
+
+            will-change:
+                transform,
+                top,
+                left;
+        }
+
+        .scene.contrib {
+            animation:
+                contribRotate
+                18s
+                linear
+                infinite,
+
+                contribMove
+                36s
+                ease-in-out
+                infinite;
+        }
+
+        .scene.compile {
+            animation:
+                compileRotate
+                18s
+                linear
+                infinite,
+
+                compileMove
+                36s
+                ease-in-out
+                infinite;
+        }
+
+
+        /* =========================================================
+           07. 3D TEXT ROOT
+        ========================================================== */
+
+        .text-3d {
+            position: relative;
+
+            display: block;
+
+            width: max-content;
+            height: max-content;
+
+            transform-style: preserve-3d;
+
+            perspective: 1100px;
+
+            user-select: none;
+        }
+
+
+        /* =========================================================
+           08. 3D TEXT LAYERS
+        ========================================================== */
+
+        .text-layer {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform-style: preserve-3d;
+
+            transform:
+                translate(-50%, -50%)
+                translateZ(var(--z));
+
+            white-space: nowrap;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-weight: 800;
+
+            letter-spacing: -0.045em;
+
+            line-height: 1;
+
+            color: var(--layer-color);
+
+            backface-visibility: visible;
+
+            -webkit-font-smoothing: antialiased;
+
+            will-change: transform;
+        }
+
+        .contrib .text-layer {
+            font-size: clamp(
+                34px,
+                7vw,
+                112px
+            );
+        }
+
+        .compile .text-layer {
+            font-size: clamp(
+                23px,
+                4.1vw,
+                70px
+            );
+
+            letter-spacing: -0.055em;
+        }
+
+
+        /* =========================================================
+           09. 3D DEPTH LIGHT
+        ========================================================== */
+
+        .text-layer.depth {
+            text-shadow:
+                0 1px 0 rgba(255, 205, 100, 0.05),
+                0 2px 3px rgba(0, 0, 0, 0.55);
+        }
+
+
+        /* =========================================================
+           10. FRONT FACE — ROYAL GOLD
+        ========================================================== */
+
+        .text-layer.front {
+            z-index: 100;
+
+            background:
+                linear-gradient(
+                    145deg,
+
+                    #fffdf2 0%,
+                    #fff4c9 10%,
+                    #ffe9a3 22%,
+                    #f5d36c 38%,
+                    #d8a928 58%,
+                    #b77b08 78%,
+                    #754700 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            -webkit-text-stroke:
+                1px
+                rgba(255, 238, 178, 0.72);
+
+            text-shadow:
+                0 0 8px rgba(255, 222, 120, 0.95),
+                0 0 22px rgba(220, 160, 35, 0.72),
+                0 0 48px rgba(180, 120, 15, 0.42),
+                0 0 100px rgba(150, 90, 0, 0.22);
+        }
+
+
+        /* =========================================================
+           11. 3D EDGE HIGHLIGHT
+        ========================================================== */
+
+        .text-layer.highlight {
+            z-index: 101;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.98),
+                    rgba(255, 220, 130, 0.28)
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            opacity: 0.42;
+
+            transform:
+                translate(-50%, -50%)
+                translateZ(1px)
+                translateY(-0.8px);
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           12. DEEP 3D SHADOW
+        ========================================================== */
+
+        .text-shadow {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                translateZ(-65px)
+                translate(25px, 35px);
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            line-height: 1;
+
+            color: rgba(0, 0, 0, 0.96);
+
+            filter: blur(18px);
+
+            opacity: 0.95;
+
+            pointer-events: none;
+        }
+
+        .contrib .text-shadow {
+            font-size: clamp(
+                34px,
+                7vw,
+                112px
+            );
+        }
+
+        .compile .text-shadow {
+            font-size: clamp(
+                23px,
+                4.1vw,
+                70px
+            );
+        }
+
+
+        /* =========================================================
+           13. GOLD AURA
+        ========================================================== */
+
+        .gold-aura {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                translateZ(-100px);
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+
+            line-height: 1;
+
+            color: #d4a017;
+
+            filter: blur(45px);
+
+            opacity: 0.26;
+
+            pointer-events: none;
+
+            animation:
+                auraPulse
+                6s
+                ease-in-out
+                infinite;
+        }
+
+        .contrib .gold-aura {
+            font-size: clamp(
+                34px,
+                7vw,
+                112px
+            );
+        }
+
+        .compile .gold-aura {
+            font-size: clamp(
+                23px,
+                4.1vw,
+                70px
+            );
+        }
+
+        @keyframes auraPulse {
+
+            0%,
+            100% {
+                opacity: 0.18;
+                filter: blur(42px);
+            }
+
+            50% {
+                opacity: 0.38;
+                filter: blur(65px);
+            }
+        }
+
+
+        /* =========================================================
+           14. TEXT ROTATION
+           Scale range: min 0.15 → max 0.99
+        ========================================================== */
+
+        @keyframes contribRotate {
+
+            0% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.15)
+                    rotateX(0deg)
+                    rotateY(0deg)
+                    rotateZ(0deg);
+            }
+
+            12% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.99)
+                    rotateX(16deg)
+                    rotateY(145deg)
+                    rotateZ(-2deg);
+            }
+
+            20% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.85)
+                    rotateX(8deg)
+                    rotateY(190deg)
+                    rotateZ(1deg);
+            }
+
+            42% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.72)
+                    rotateX(-5deg)
+                    rotateY(235deg)
+                    rotateZ(-1deg);
+            }
+
+            65% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.58)
+                    rotateX(-12deg)
+                    rotateY(300deg)
+                    rotateZ(2deg);
+            }
+
+            82% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.34)
+                    rotateX(5deg)
+                    rotateY(340deg)
+                    rotateZ(0deg);
+            }
+
+            100% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.15)
+                    rotateX(0deg)
+                    rotateY(360deg)
+                    rotateZ(0deg);
+            }
+        }
+
+        @keyframes compileRotate {
+
+            0% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.15)
+                    rotateX(0deg)
+                    rotateY(0deg)
+                    rotateZ(0deg);
+            }
+
+            12% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.96)
+                    rotateX(-16deg)
+                    rotateY(-145deg)
+                    rotateZ(2deg);
+            }
+
+            20% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.83)
+                    rotateX(-8deg)
+                    rotateY(-190deg)
+                    rotateZ(-1deg);
+            }
+
+            42% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.70)
+                    rotateX(5deg)
+                    rotateY(-235deg)
+                    rotateZ(1deg);
+            }
+
+            65% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.56)
+                    rotateX(12deg)
+                    rotateY(-300deg)
+                    rotateZ(-2deg);
+            }
+
+            82% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.32)
+                    rotateX(-5deg)
+                    rotateY(-340deg)
+                    rotateZ(0deg);
+            }
+
+            100% {
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.15)
+                    rotateX(0deg)
+                    rotateY(-360deg)
+                    rotateZ(0deg);
+            }
+        }
+
+
+        /* =========================================================
+           15. TEXT POSITION MOVEMENT
+        ========================================================== */
+
+        @keyframes contribMove {
+
+            0% {
+                top: 43%;
+                left: 50%;
+            }
+
+            15% {
+                top: 50%;
+                left: 76%;
+            }
+
+            30% {
+                top: 25%;
+                left: 76%;
+            }
+
+            45% {
+                top: 25%;
+                left: 24%;
+            }
+
+            60% {
+                top: 75%;
+                left: 24%;
+            }
+
+            75% {
+                top: 75%;
+                left: 76%;
+            }
+
+            90% {
+                top: 43%;
+                left: 50%;
+            }
+
+            100% {
+                top: 43%;
+                left: 50%;
+            }
+        }
+
+        @keyframes compileMove {
+
+            0% {
+                top: 57%;
+                left: 50%;
+            }
+
+            15% {
+                top: 50%;
+                left: 24%;
+            }
+
+            30% {
+                top: 75%;
+                left: 24%;
+            }
+
+            45% {
+                top: 75%;
+                left: 76%;
+            }
+
+            60% {
+                top: 25%;
+                left: 76%;
+            }
+
+            75% {
+                top: 25%;
+                left: 24%;
+            }
+
+            90% {
+                top: 57%;
+                left: 50%;
+            }
+
+            100% {
+                top: 57%;
+                left: 50%;
+            }
+        }
+
+
+        /* =========================================================
+           16. MAIN PAGE
+        ========================================================== */
+
+        .page {
+            position: relative;
+
+            z-index: 10;
+
+            width: 100%;
+
+            background: transparent !important;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           17. HERO
+        ========================================================== */
+
+        .hero-section {
+            position: relative;
+
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding:
+                60px
+                24px
+                120px;
+
+            background: transparent !important;
+
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+
+            background: transparent !important;
+
+            pointer-events: none;
+        }
+
+        .content h1 {
+            font-family:
+                "Space Grotesk",
+                "Inter",
+                sans-serif;
+
+            font-size:
+                clamp(
+                    36px,
+                    6vw,
+                    84px
+                );
+
+            font-weight: 600;
+
+            line-height: 1.02;
+
+            letter-spacing: -0.045em;
+
+            margin-bottom: 22px;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 15%,
+                    #eee7d2 55%,
+                    #9e9278 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            filter:
+                drop-shadow(
+                    0 8px 30px
+                    rgba(212, 160, 23, 0.14)
+                );
+
+            background-color: transparent !important;
+        }
+
+        .content p {
+            max-width: 590px;
+
+            margin: 0 auto;
+
+            font-family:
+                "Inter",
+                sans-serif;
+
+            font-size:
+                clamp(
+                    14px,
+                    1.5vw,
+                    18px
+                );
+
+            line-height: 1.7;
+
+            font-weight: 400;
+
+            color: #8e8a82;
+
+            letter-spacing: -0.01em;
+
+            background: transparent !important;
+        }
+
+
+        /* =========================================================
+           18. SCROLL HINT
+        ========================================================== */
+
+        .scroll-hint {
+            position: absolute;
+
+            bottom: 42px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 13px;
+
+            color: #68645d;
+
+            font-size: 11px;
+
+            letter-spacing: 0.06em;
+
+            font-weight: 500;
+
+            background: transparent !important;
+
+            animation:
+                scrollBounce
+                2.4s
+                ease-in-out
+                infinite;
+        }
+
+        .scroll-hint .arrow {
+            width: 9px;
+            height: 9px;
+
+            border-right:
+                1.5px
+                solid
+                rgba(230, 198, 120, 0.72);
+
+            border-bottom:
+                1.5px
+                solid
+                rgba(230, 198, 120, 0.72);
+
+            transform: rotate(45deg);
+
+            background: transparent !important;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform:
+                    translate(-50%, 0);
+
+                opacity: 0.55;
+            }
+
+            50% {
+                transform:
+                    translate(-50%, 8px);
+
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================================================
+           19. EDITOR SECTION
+        ========================================================== */
+
+        .editor-section {
+            position: relative;
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                70px
+                32px
+                100px;
+
+            background: transparent !important;
+
+            pointer-events: auto;
+        }
+
+
+        /* =========================================================
+           20. CODE EDITOR — FULLY TRANSPARENT + GOLD BORDER
+        ========================================================== */
+
+        .code-editor {
+            position: relative;
+
+            width: 100%;
+
+            max-width: 1400px;
+
+            height: 82vh;
+
+            min-height: 460px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            background: transparent !important;
+            background-color: transparent !important;
+
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+
+            border: 1px solid transparent;
+
+            border-image:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 240, 190, 0.95) 0%,
+                    rgba(245, 210, 110, 0.85) 18%,
+                    rgba(200, 150, 40, 0.75) 42%,
+                    rgba(150, 100, 20, 0.65) 62%,
+                    rgba(220, 165, 55, 0.80) 82%,
+                    rgba(255, 235, 175, 0.92) 100%
+                ) 1;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 40px 100px rgba(0, 0, 0, 0.65),
+                0 0 60px rgba(200, 145, 30, 0.22),
+                0 0 120px rgba(180, 120, 15, 0.12),
+                inset 0 0 0 1px rgba(255, 235, 175, 0.08),
+                inset 0 0 40px rgba(200, 145, 30, 0.05);
+
+            overflow: hidden;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+            color: #ded9ce;
+
+            transition:
+                box-shadow 0.35s ease;
+        }
+
+        .code-editor::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 1;
+
+            pointer-events: none;
+
+            border-radius: inherit;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    rgba(255, 230, 160, 0) 62%,
+                    rgba(255, 225, 150, 0.035) 100%
+                );
+
+            mix-blend-mode: screen;
+        }
+
+        .code-editor::after {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 10%;
+            right: 10%;
+
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 235, 180, 0.9),
+                    rgba(255, 220, 130, 0.7),
+                    transparent
+                );
+
+            z-index: 20;
+
+            pointer-events: none;
+
+            filter: drop-shadow(
+                0 0 6px rgba(255, 220, 130, 0.6)
+            );
+        }
+
+        .code-editor:hover {
+            box-shadow:
+                0 45px 110px rgba(0, 0, 0, 0.70),
+                0 0 80px rgba(210, 155, 40, 0.30),
+                0 0 160px rgba(190, 130, 20, 0.16),
+                inset 0 0 0 1px rgba(255, 240, 190, 0.10),
+                inset 0 0 55px rgba(210, 155, 40, 0.07);
+        }
+
+        .code-editor:focus-within {
+            box-shadow:
+                0 45px 110px rgba(0, 0, 0, 0.72),
+                0 0 95px rgba(225, 170, 55, 0.38),
+                0 0 190px rgba(200, 140, 25, 0.20),
+                inset 0 0 0 1px rgba(255, 245, 200, 0.14),
+                inset 0 0 60px rgba(220, 165, 50, 0.09);
+        }
+
+
+        /* =========================================================
+           21. EDITOR BAR — TRANSPARENT WITH GOLD HAIRLINE
+        ========================================================== */
+
+        .editor-bar {
+            position: relative;
+
+            z-index: 5;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            min-height: 48px;
+
+            padding:
+                12px
+                18px;
+
+            background: transparent !important;
+            background-color: transparent !important;
+
+            border-bottom:
+                1px
+                solid
+                rgba(230, 185, 80, 0.22);
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================================================
+           22. EDITOR DOTS
+        ========================================================== */
+
+        .editor-dots {
+            display: flex;
+
+            gap: 7px;
+        }
+
+        .editor-dots span {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            display: block;
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            transition:
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .editor-bar:hover
+        .editor-dots span:nth-child(1) {
+            background: #ff5f57;
+            box-shadow:
+                0 0 8px rgba(255, 95, 87, 0.55);
+        }
+
+        .editor-bar:hover
+        .editor-dots span:nth-child(2) {
+            background: #febc2e;
+            box-shadow:
+                0 0 8px rgba(254, 188, 46, 0.5);
+        }
+
+        .editor-bar:hover
+        .editor-dots span:nth-child(3) {
+            background: #28c840;
+            box-shadow:
+                0 0 8px rgba(40, 200, 64, 0.5);
+        }
+
+
+        /* =========================================================
+           23. EDITOR TITLE
+        ========================================================== */
+
+        .editor-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-left: 6px;
+
+            font-family:
+                "Inter",
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            color: #e6d9b6;
+
+            background: transparent !important;
+
+            text-shadow:
+                0 0 12px rgba(0, 0, 0, 0.9),
+                0 0 24px rgba(0, 0, 0, 0.7);
+        }
+
+        .editor-title::before {
+            content: "";
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background:
+                #f0c869;
+
+            box-shadow:
+                0 0 10px
+                rgba(240, 200, 105, 0.85);
+        }
+
+
+        /* =========================================================
+           24. LANGUAGE BADGE
+        ========================================================== */
+
+        .editor-lang {
+            margin-left: auto;
+
+            padding:
+                3px
+                9px;
+
+            border-radius: 999px;
+
+            font-family:
+                "Inter",
+                sans-serif;
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.04em;
+
+            color: #e6d9b6;
+
+            background: transparent !important;
+
+            border:
+                1px
+                solid
+                rgba(230, 185, 80, 0.35);
+
+            text-shadow:
+                0 0 10px rgba(0, 0, 0, 0.9);
+        }
+
+
+        /* =========================================================
+           25. EDITOR BODY — FULLY TRANSPARENT
+        ========================================================== */
+
+        .editor-body {
+            position: relative;
+
+            z-index: 4;
+
+            flex: 1;
+
+            min-height: 0;
+
+            display: flex;
+
+            overflow-y: auto;
+            overflow-x: auto;
+
+            background: transparent !important;
+            background-color: transparent !important;
+
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .editor-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .editor-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .editor-body::-webkit-scrollbar-thumb {
+            background:
+                rgba(240, 200, 105, 0.25);
+
+            border-radius: 999px;
+        }
+
+        .editor-body::-webkit-scrollbar-thumb:hover {
+            background:
+                rgba(240, 200, 105, 0.5);
+        }
+
+
+        /* =========================================================
+           26. LINE NUMBERS
+        ========================================================== */
+
+        .line-numbers {
+            flex-shrink: 0;
+
+            min-width: 58px;
+
+            padding:
+                18px
+                16px
+                50px
+                20px;
+
+            text-align: right;
+
+            user-select: none;
+
+            white-space: pre;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-size: 12px;
+
+            line-height: 1.8;
+
+            color: rgba(220, 185, 105, 0.55);
+
+            background: transparent !important;
+
+            border-right:
+                1px
+                solid
+                rgba(230, 185, 80, 0.18);
+
+            text-shadow:
+                0 0 10px rgba(0, 0, 0, 0.95),
+                0 0 20px rgba(0, 0, 0, 0.75);
+        }
+
+
+        /* =========================================================
+           27. CODE AREA — FULLY TRANSPARENT
+        ========================================================== */
+
+        .editor-code {
+            flex: 1;
+
+            min-height: 100%;
+
+            width: max-content;
+
+            min-width: 100%;
+
+            padding:
+                18px
+                28px
+                70px
+                22px;
+
+            outline: none;
+
+            background: transparent !important;
+            background-color: transparent !important;
+
+            border: none;
+
+            color: #ece7dc;
+
+            font-family:
+                "JetBrains Mono",
+                monospace;
+
+            font-size: 13.5px;
+
+            line-height: 1.8;
+
+            white-space: pre;
+
+            tab-size: 2;
+
+            caret-color: #f5cd6d;
+
+            text-shadow:
+                0 0 1px rgba(0, 0, 0, 0.98),
+                0 0 8px rgba(0, 0, 0, 0.9),
+                0 0 16px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .editor-code:empty::before {
+            content:
+                "// start typing your code...";
+
+            color: rgba(200, 180, 130, 0.45);
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           28. SYNTAX COLORS
+        ========================================================== */
+
+        .tok-cmt {
+            color: #9c9484;
+            font-style: italic;
+        }
+
+        .tok-kw {
+            color: #d9b3ff;
+        }
+
+        .tok-fn {
+            color: #eacf82;
+        }
+
+        .tok-num {
+            color: #eeae72;
+        }
+
+        .tok-str {
+            color: #a7dc9e;
+        }
+
+        .tok-var {
+            color: #f0ebde;
+        }
+
+        .tok-punc {
+            color: #9a9385;
+        }
+
+        .tok-prop {
+            color: #becbea;
+        }
+
+        .tok-lit {
+            color: #eeaec4;
+        }
+
+
+        /* =========================================================
+           29. STATUS BAR — TRANSPARENT
+        ========================================================== */
+
+        .editor-status {
+            position: relative;
+
+            z-index: 5;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            min-height: 34px;
+
+            padding:
+                7px
+                18px;
+
+            font-family:
+                "Inter",
+                sans-serif;
+
+            font-size: 10.5px;
+
+            color: rgba(230, 210, 160, 0.7);
+
+            background: transparent !important;
+            background-color: transparent !important;
+
+            border-top:
+                1px
+                solid
+                rgba(230, 185, 80, 0.20);
+
+            flex-shrink: 0;
+
+            text-shadow:
+                0 0 10px rgba(0, 0, 0, 0.9);
+        }
+
+        .editor-status .status-dot {
+            display: inline-block;
+
+            width: 6px;
+            height: 6px;
+
+            margin-right: 6px;
+
+            vertical-align: middle;
+
+            border-radius: 50%;
+
+            background: #f0c869;
+
+            box-shadow:
+                0 0 8px
+                rgba(240, 200, 105, 0.9);
+        }
+
+        .editor-status .right {
+            margin-left: auto;
+
+            display: flex;
+
+            gap: 18px;
+
+            color: rgba(220, 195, 140, 0.6);
+
+            background: transparent !important;
+        }
+
+
+        /* =========================================================
+           30. MOBILE — TABLET
+        ========================================================== */
+
+        @media (max-width: 900px) {
+
+            .contrib .text-layer,
+            .contrib .text-shadow,
+            .contrib .gold-aura {
+                font-size:
+                    clamp(
+                        30px,
+                        8vw,
+                        72px
+                    );
+            }
+
+            .compile .text-layer,
+            .compile .text-shadow,
+            .compile .gold-aura {
+                font-size:
+                    clamp(
+                        19px,
+                        5vw,
+                        48px
+                    );
+            }
+
+            .editor-section {
+                padding:
+                    50px
+                    18px
+                    80px;
+            }
+
+            .code-editor {
+                height: 78vh;
+
+                min-height: 420px;
+
+                border-radius: 15px;
+            }
+
+            .editor-code {
+                font-size: 12.5px;
+            }
+        }
+
+
+        /* =========================================================
+           31. MOBILE
+        ========================================================== */
+
+        @media (max-width: 640px) {
+
+            html,
+            body {
+                width: 100%;
+
+                overflow-x: hidden;
+            }
+
+
+            .ambient-light {
+                width: 70vw;
+                height: 70vw;
+
+                filter: blur(100px);
+            }
+
+            .glass-orb.one {
+                width: 200px;
+                height: 200px;
+
+                top: 4%;
+                left: -10%;
+            }
+
+            .glass-orb.two {
+                width: 180px;
+                height: 180px;
+            }
+
+            .glass-orb.three {
+                width: 140px;
+                height: 140px;
+            }
+
+            .grid {
+                background-size: 52px 52px;
+
+                opacity: 0.65;
+            }
+
+
+            .scene-container {
+                perspective: 750px;
+            }
+
+            .contrib .text-layer,
+            .contrib .text-shadow,
+            .contrib .gold-aura {
+                font-size:
+                    clamp(
+                        24px,
+                        9.5vw,
+                        52px
+                    );
+            }
+
+            .compile .text-layer,
+            .compile .text-shadow,
+            .compile .gold-aura {
+                font-size:
+                    clamp(
+                        15px,
+                        5.7vw,
+                        32px
+                    );
+            }
+
+            .text-layer.front {
+                -webkit-text-stroke:
+                    0.7px
+                    rgba(255, 238, 178, 0.65);
+
+                text-shadow:
+                    0 0 7px rgba(255, 222, 120, 0.85),
+                    0 0 18px rgba(220, 160, 35, 0.55),
+                    0 0 40px rgba(180, 120, 15, 0.28);
+            }
+
+
+            .hero-section {
+                min-height: 100svh;
+
+                padding:
+                    40px
+                    20px
+                    100px;
+            }
+
+            .content h1 {
+                font-size:
+                    clamp(
+                        32px,
+                        10vw,
+                        50px
+                    );
+
+                line-height: 1.04;
+
+                letter-spacing: -0.04em;
+
+                margin-bottom: 18px;
+            }
+
+            .content p {
+                max-width: 340px;
+
+                font-size: 14px;
+
+                line-height: 1.65;
+            }
+
+            .scroll-hint {
+                bottom: 30px;
+
+                font-size: 10px;
+            }
+
+
+            .editor-section {
+                min-height: 100svh;
+
+                padding:
+                    35px
+                    10px
+                    60px;
+            }
+
+            .code-editor {
+                height: 82svh;
+
+                min-height: 420px;
+
+                border-radius: 14px;
+            }
+
+            .editor-bar {
+                min-height: 43px;
+
+                padding:
+                    10px
+                    12px;
+            }
+
+            .editor-dots {
+                gap: 5px;
+            }
+
+            .editor-dots span {
+                width: 8px;
+                height: 8px;
+            }
+
+            .editor-title {
+                font-size: 10.5px;
+
+                margin-left: 2px;
+            }
+
+            .editor-lang {
+                font-size: 9px;
+
+                padding:
+                    2px
+                    7px;
+            }
+
+
+            .line-numbers {
+                min-width: 43px;
+
+                padding:
+                    14px
+                    9px
+                    45px
+                    9px;
+
+                font-size: 10px;
+            }
+
+            .editor-code {
+                padding:
+                    14px
+                    18px
+                    60px
+                    15px;
+
+                font-size: 11px;
+
+                line-height: 1.75;
+            }
+
+
+            .editor-status {
+                min-height: 32px;
+
+                padding:
+                    6px
+                    11px;
+
+                font-size: 9px;
+
+                gap: 10px;
+            }
+
+            .editor-status .right {
+                gap: 9px;
+            }
+        }
+
+
+        /* =========================================================
+           32. VERY SMALL PHONES
+        ========================================================== */
+
+        @media (max-width: 390px) {
+
+            .contrib .text-layer,
+            .contrib .text-shadow,
+            .contrib .gold-aura {
+                font-size:
+                    clamp(
+                        20px,
+                        8.7vw,
+                        38px
+                    );
+            }
+
+            .compile .text-layer,
+            .compile .text-shadow,
+            .compile .gold-aura {
+                font-size:
+                    clamp(
+                        13px,
+                        5vw,
+                        25px
+                    );
+            }
+
+            .content h1 {
+                font-size: 30px;
+            }
+
+            .content p {
+                font-size: 13px;
+            }
+
+            .editor-section {
+                padding-left: 7px;
+                padding-right: 7px;
+            }
+
+            .code-editor {
+                min-height: 390px;
+            }
+
+            .editor-code {
+                font-size: 10px;
+
+                padding-left: 12px;
+                padding-right: 14px;
+            }
+
+            .line-numbers {
+                min-width: 38px;
+
+                padding-left: 6px;
+                padding-right: 7px;
+
+                font-size: 9px;
+            }
+
+            .editor-status .right span:nth-child(2),
+            .editor-status .right span:nth-child(3) {
+                display: none;
+            }
+        }
+
+
+        /* =========================================================
+           33. LANDSCAPE MOBILE
+        ========================================================== */
+
+        @media (
+            max-height: 550px
+        ) and (
+            max-width: 900px
+        ) {
+
+            .hero-section {
+                min-height: 620px;
+            }
+
+            .editor-section {
+                min-height: 650px;
+            }
+
+            .code-editor {
+                height: 80vh;
+
+                min-height: 380px;
+            }
+
+            .scroll-hint {
+                display: none;
+            }
+        }
+
+
+        /* =========================================================
+           34. REDUCED MOTION
+        ========================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            .ambient-background::before,
+            .ambient-light,
+            .scene,
+            .gold-aura,
+            .scroll-hint,
+            .glass-orb {
+                animation: none !important;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         GLOBAL BACKGROUND LAYERS
+    ========================================================== -->
+
+    <div class="ambient-background"></div>
+
+    <div class="ambient-light one"></div>
+    <div class="ambient-light two"></div>
+
+    <div class="glass-orbs" aria-hidden="true">
+        <div class="glass-orb one"></div>
+        <div class="glass-orb two"></div>
+        <div class="glass-orb three"></div>
+    </div>
+
+    <div class="grid"></div>
+
+    <div class="glass-grain" aria-hidden="true"></div>
+
+
+    <!-- =========================================================
+         3D ANIMATED TEXT
+    ========================================================== -->
+
+    <div
+        class="scene-container"
+        aria-hidden="true"
+    >
+
+        <div
+            class="scene contrib"
+            data-text="CONTRIBPILOT"
+        >
+
+            <div class="text-3d">
+
+                <div class="gold-aura">
+                    CONTRIBPILOT
+                </div>
+
+                <div class="text-shadow">
+                    CONTRIBPILOT
+                </div>
+
+                <div class="text-layer front">
+                    CONTRIBPILOT
+                </div>
+
+                <div class="text-layer highlight">
+                    CONTRIBPILOT
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="scene compile"
+            data-text="CompileSyntaxError"
+        >
+
+            <div class="text-3d">
+
+                <div class="gold-aura">
+                    CompileSyntaxError
+                </div>
+
+                <div class="text-shadow">
+                    CompileSyntaxError
+                </div>
+
+                <div class="text-layer front">
+                    CompileSyntaxError
+                </div>
+
+                <div class="text-layer highlight">
+                    CompileSyntaxError
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         MAIN PAGE
+    ========================================================== -->
+
+    <main class="page">
+
+
+        <section class="hero-section">
+
+            <div class="content">
+
+                <h1>
+                    Contribute with Confidence
+                </h1>
+
+                <p>
+                    Find the right issue, understand the code,
+                    fix it, and prove it works — all in one place.
+                </p>
+
+            </div>
+
+
+            <div class="scroll-hint">
+
+                <span>
+                    Scroll to open editor
+                </span>
+
+                <div class="arrow"></div>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="editor-section">
+
+            <div class="code-editor">
+
+
+                <div class="editor-bar">
+
+                    <div class="editor-dots">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="editor-title">
+                        fix-issue.js
+                    </div>
+
+
+                    <div class="editor-lang">
+                        JS
+                    </div>
+
+                </div>
+
+
+
+                <div class="editor-body">
+
+                    <div
+                        class="line-numbers"
+                        id="lineNumbers"
+                    >
+1
+                    </div>
+
+
+                    <pre
+                        class="editor-code"
+                        id="editorCode"
+                        contenteditable="true"
+                        spellcheck="false"
+                    ><span class="tok-cmt">// Resolve issue #142 — patch applied</span>
+<span class="tok-kw">function</span> <span class="tok-fn">fixBug</span><span class="tok-punc">(</span><span class="tok-var">data</span><span class="tok-punc">)</span> <span class="tok-punc">{</span>
+  <span class="tok-kw">if</span> <span class="tok-punc">(</span><span class="tok-punc">!</span><span class="tok-var">data</span><span class="tok-punc">)</span> <span class="tok-kw">return</span> <span class="tok-lit">null</span><span class="tok-punc">;</span>
+
+  <span class="tok-kw">const</span> <span class="tok-var">result</span> <span class="tok-punc">=</span> <span class="tok-var">data</span>
+    <span class="tok-punc">.</span><span class="tok-fn">map</span><span class="tok-punc">(</span><span class="tok-var">x</span> <span class="tok-punc">=&gt;</span> <span class="tok-var">x</span> <span class="tok-punc">*</span> <span class="tok-num">2</span><span class="tok-punc">)</span>
+    <span class="tok-punc">.</span><span class="tok-fn">filter</span><span class="tok-punc">(</span><span class="tok-var">x</span> <span class="tok-punc">=&gt;</span> <span class="tok-var">x</span> <span class="tok-punc">&gt;</span> <span class="tok-num">0</span><span class="tok-punc">)</span><span class="tok-punc">;</span>
+
+  <span class="tok-kw">return</span> <span class="tok-var">result</span><span class="tok-punc">;</span>
+<span class="tok-punc">}</span></pre>
+
+                </div>
+
+
+
+                <div class="editor-status">
+
+                    <span>
+                        <span class="status-dot"></span>
+                        Ready
+                    </span>
+
+                    <span id="cursorPos">
+                        Ln 1, Col 1
+                    </span>
+
+
+                    <div class="right">
+
+                        <span>
+                            UTF-8
+                        </span>
+
+                        <span>
+                            LF
+                        </span>
+
+                        <span>
+                            JavaScript
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+
+            /* =====================================================
+               01. CREATE REAL 3D EXTRUSION
+            ====================================================== */
+
+            const scenes =
+                document.querySelectorAll(".scene");
+
+
+            function getDepthColor(i, totalDepth) {
+
+                const t =
+                    (i - 1) /
+                    Math.max(1, totalDepth - 1);
+
+                const wave =
+                    Math.sin(t * Math.PI);
+
+                const r =
+                    Math.round(255 - wave * 170);
+
+                const g =
+                    Math.round(244 - wave * 200);
+
+                const b =
+                    Math.round(201 - wave * 195);
+
+                return (
+                    "rgb(" +
+                    r + ", " +
+                    g + ", " +
+                    b + ")"
+                );
+            }
+
+
+            scenes.forEach((scene) => {
+
+                const root =
+                    scene.querySelector(".text-3d");
+
+                const front =
+                    root.querySelector(".text-layer.front");
+
+                const highlight =
+                    root.querySelector(".text-layer.highlight");
+
+                const text =
+                    scene.dataset.text;
+
+
+                const depth =
+                    text === "CONTRIBPILOT"
+                        ? 42
+                        : 34;
+
+
+                for (
+                    let i = 1;
+                    i <= depth;
+                    i++
+                ) {
+
+                    const layer =
+                        document.createElement("div");
+
+                    layer.className =
+                        "text-layer depth";
+
+                    layer.textContent =
+                        text;
+
+                    layer.style.setProperty(
+                        "--z",
+                        `${-i}px`
+                    );
+
+                    layer.style.setProperty(
+                        "--layer-color",
+                        getDepthColor(i, depth)
+                    );
+
+                    root.appendChild(layer);
+                }
+
+
+                front.style.setProperty(
+                    "--z",
+                    "0px"
+                );
+
+                highlight.style.setProperty(
+                    "--z",
+                    "1px"
+                );
+
+            });
+
+
+
+            /* =====================================================
+               02. CODE EDITOR
+            ====================================================== */
+
+            const editor =
+                document.getElementById("editorCode");
+
+            const lineNumbers =
+                document.getElementById("lineNumbers");
+
+            const cursor =
+                document.getElementById("cursorPos");
+
+
+            function updateLineNumbers() {
+
+                const text =
+                    editor.innerText
+                        .replace(/\n$/, "");
+
+                const lines =
+                    Math.max(
+                        1,
+                        text.split("\n").length
+                    );
+
+
+                let output = "";
+
+                for (
+                    let i = 1;
+                    i <= lines;
+                    i++
+                ) {
+
+                    output += i;
+
+                    if (i < lines) {
+                        output += "\n";
+                    }
+
+                }
+
+                lineNumbers.textContent =
+                    output;
+            }
+
+
+            function updateCursorPosition() {
+
+                const selection =
+                    window.getSelection();
+
+                if (
+                    !selection ||
+                    !selection.rangeCount
+                ) {
+                    return;
+                }
+
+
+                const range =
+                    selection.getRangeAt(0);
+
+
+                if (
+                    !editor.contains(
+                        range.startContainer
+                    )
+                ) {
+                    return;
+                }
+
+
+                const pre =
+                    range.cloneRange();
+
+
+                pre.selectNodeContents(editor);
+
+                pre.setEnd(
+                    range.startContainer,
+                    range.startOffset
+                );
+
+
+                const text =
+                    pre.toString();
+
+
+                const lines =
+                    text.split("\n");
+
+
+                const line =
+                    lines.length;
+
+
+                const column =
+                    lines[
+                        lines.length - 1
+                    ].length + 1;
+
+
+                cursor.textContent =
+                    `Ln ${line}, Col ${column}`;
+            }
+
+
+            editor.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Tab"
+                    ) {
+
+                        event.preventDefault();
+
+                        document.execCommand(
+                            "insertText",
+                            false,
+                            "  "
+                        );
+
+                    }
+
+                }
+            );
+
+
+            editor.addEventListener(
+                "input",
+                function () {
+
+                    updateLineNumbers();
+
+                    updateCursorPosition();
+
+                }
+            );
+
+
+            editor.addEventListener(
+                "keyup",
+                updateCursorPosition
+            );
+
+            editor.addEventListener(
+                "click",
+                updateCursorPosition
+            );
+
+            editor.addEventListener(
+                "focus",
+                updateCursorPosition
+            );
+
+
+            editor.addEventListener(
+                "paste",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const clipboard =
+                        event.clipboardData ||
+                        window.clipboardData;
+
+
+                    const text =
+                        clipboard.getData(
+                            "text/plain"
+                        );
+
+
+                    document.execCommand(
+                        "insertText",
+                        false,
+                        text
+                    );
+
+                }
+            );
+
+
+            updateLineNumbers();
+
+            updateCursorPosition();
+
+        })();
+
+    </script>
+
+</body>
+</html>

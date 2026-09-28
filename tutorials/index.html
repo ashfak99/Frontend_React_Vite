@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Background Animation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            background: #05060c;
+            color: white;
+            font-family: 'Space Grotesk', Arial, sans-serif;
+            position: relative;
+        }
+
+        /* ==========================================
+           1. BACKGROUND
+        ========================================== */
+
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    ellipse at 50% 100%,
+                    rgba(0, 180, 255, 0.10) 0%,
+                    transparent 55%
+                ),
+                radial-gradient(
+                    ellipse at 50% 0%,
+                    rgba(100, 120, 255, 0.08) 0%,
+                    transparent 55%
+                ),
+                linear-gradient(180deg, #060810 0%, #080b16 50%, #05060c 100%);
+        }
+
+        .soft-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(130px);
+            opacity: 0.45;
+        }
+
+        .soft-glow.g1 {
+            width: 620px;
+            height: 620px;
+            background: #00c8ff;
+            top: -20%;
+            left: -15%;
+            animation: drift1 30s ease-in-out infinite;
+        }
+
+        .soft-glow.g2 {
+            width: 540px;
+            height: 540px;
+            background: #5566ff;
+            bottom: -20%;
+            right: -15%;
+            opacity: 0.35;
+            animation: drift2 36s ease-in-out infinite;
+        }
+
+        @keyframes drift1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50%      { transform: translate(60px, 40px) scale(1.1); }
+        }
+        @keyframes drift2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50%      { transform: translate(-70px, -40px) scale(1.08); }
+        }
+
+        /* ==========================================
+           2. GLASS
+        ========================================== */
+
+        .glass {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+
+            background:
+                radial-gradient(
+                    circle at 30% 20%,
+                    rgba(120, 220, 255, 0.05),
+                    transparent 45%
+                ),
+                radial-gradient(
+                    circle at 75% 80%,
+                    rgba(120, 150, 255, 0.045),
+                    transparent 50%
+                ),
+                rgba(6, 8, 16, 0.42);
+
+            backdrop-filter: blur(80px) saturate(140%);
+            -webkit-backdrop-filter: blur(80px) saturate(140%);
+            pointer-events: none;
+        }
+
+        .glass::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                125deg,
+                rgba(160, 230, 255, 0.06) 0%,
+                rgba(255, 255, 255, 0) 22%,
+                rgba(255, 255, 255, 0) 78%,
+                rgba(120, 200, 255, 0.05) 100%
+            );
+        }
+
+        .glass::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image:
+                radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px);
+            background-size: 3px 3px;
+        }
+
+        /* ==========================================
+           3. SCENE CONTAINER
+           ==========================================
+           Fixed, full-viewport wrapper that:
+           - holds the perspective (so it's relative to viewport, not body)
+           - sits ABOVE the glass so animation isn't blurred
+           - is the true center origin for both scenes
+        ========================================== */
+
+        .scene-container {
+            position: fixed;
+            inset: 0;
+
+            /* the whole scene container is the perspective root */
+            perspective: 850px;
+            perspective-origin: 50% 50%;
+
+            z-index: 3;
+
+            /* allow text to scale beyond edges without clipping */
+            overflow: visible;
+            pointer-events: none;
+        }
+
+        /* ==========================================
+           4. SCENE CONTAINERS — centered in container
+        ========================================== */
+
+        .chatgpt-scene,
+        .code-scene {
+            position: absolute;
+
+            /* true viewport center */
+            top: 50%;
+            left: 50%;
+
+            transform-style: preserve-3d;
+
+            pointer-events: none;
+            user-select: none;
+
+            /* center the element's box on that point before animating */
+            transform: translate(-50%, -50%);
+        }
+
+        /* We override the transform via animation, so bake the
+           translate(-50%, -50%) into every keyframe instead */
+        .chatgpt-scene {
+            animation:
+                chatGPTRotation 18s linear infinite,
+                chatGPTFloat    40s ease-in-out infinite;
+        }
+
+        .code-scene {
+            animation:
+                codeRotation 18s linear infinite,
+                codeFloat    40s ease-in-out infinite;
+        }
+
+        /* ==========================================
+           5. SHADOWS
+        ========================================== */
+
+        .chatgpt-shadow-aura,
+        .code-shadow-aura {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 7.5vw, 130px);
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+
+            color: #00c8ff;
+            filter: blur(60px);
+            opacity: 0.55;
+
+            transform: translate(-50%, -50%) translateZ(-60px) translate(28px, 38px);
+
+            z-index: -3;
+            animation: shadowAuraPulse 18s linear infinite;
+        }
+
+        .code-shadow-aura {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(26px, 4.2vw, 78px);
+            letter-spacing: 0.01em;
+            color: #7cdfff;
+        }
+
+        @keyframes shadowAuraPulse {
+            0%   { opacity: 0.28; filter: blur(45px); transform: translate(-50%,-50%) translateZ(-50px) translate(16px,22px); }
+            13%  { opacity: 1.00; filter: blur(90px); transform: translate(-50%,-50%) translateZ(-100px) translate(52px,70px); }
+            20%  { opacity: 0.88; filter: blur(78px); transform: translate(-50%,-50%) translateZ(-92px) translate(46px,62px); }
+            60%  { opacity: 0.52; filter: blur(55px); transform: translate(-50%,-50%) translateZ(-72px) translate(30px,40px); }
+            100% { opacity: 0.28; filter: blur(45px); transform: translate(-50%,-50%) translateZ(-50px) translate(16px,22px); }
+        }
+
+        .chatgpt-shadow-core,
+        .code-shadow-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 7.5vw, 130px);
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+
+            color: #000814;
+            filter: blur(28px);
+            opacity: 0.9;
+
+            transform: translate(-50%, -50%) translateZ(-50px) translate(20px, 28px);
+
+            z-index: -2;
+            animation: shadowCorePulse 18s linear infinite;
+        }
+
+        .code-shadow-core {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(26px, 4.2vw, 78px);
+            letter-spacing: 0.01em;
+        }
+
+        @keyframes shadowCorePulse {
+            0%   { opacity: 0.55; filter: blur(22px); transform: translate(-50%,-50%) translateZ(-40px) translate(12px,16px); }
+            13%  { opacity: 1.00; filter: blur(52px); transform: translate(-50%,-50%) translateZ(-75px) translate(38px,50px); }
+            20%  { opacity: 0.94; filter: blur(46px); transform: translate(-50%,-50%) translateZ(-70px) translate(34px,44px); }
+            60%  { opacity: 0.70; filter: blur(32px); transform: translate(-50%,-50%) translateZ(-55px) translate(22px,30px); }
+            100% { opacity: 0.55; filter: blur(22px); transform: translate(-50%,-50%) translateZ(-40px) translate(12px,16px); }
+        }
+
+        /* ==========================================
+           6. 3D TEXT LAYERS
+        ========================================== */
+
+        .chatgpt-3d,
+        .code-3d {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .chatgpt-3d span {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 7.5vw, 130px);
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+
+            color: var(--c);
+
+            transform: translate(-50%, -50%) translateZ(var(--z));
+
+            -webkit-text-stroke: 0.5px rgba(180, 240, 255, 0.18);
+
+            text-shadow:
+                0 0 6px rgba(0, 190, 255, 0.6),
+                0 0 14px rgba(0, 150, 255, 0.32);
+
+            backface-visibility: visible;
+            will-change: transform;
+        }
+
+        .code-3d span {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(26px, 4.2vw, 78px);
+            font-weight: 900;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+
+            color: var(--c);
+
+            transform: translate(-50%, -50%) translateZ(var(--z));
+
+            -webkit-text-stroke: 0.5px rgba(180, 240, 255, 0.18);
+
+            text-shadow:
+                0 0 6px rgba(0, 190, 255, 0.6),
+                0 0 14px rgba(0, 150, 255, 0.32);
+
+            backface-visibility: visible;
+            will-change: transform;
+        }
+
+        .chatgpt-3d span.front,
+        .code-3d span.front {
+            background: linear-gradient(
+                145deg,
+                #ffffff 0%,
+                #e8faff 14%,
+                #8ee6ff 38%,
+                #28baff 68%,
+                #0080e0 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            -webkit-text-stroke: 1.1px rgba(200, 240, 255, 0.6);
+
+            text-shadow:
+                0 0 16px rgba(120, 220, 255, 1),
+                0 0 38px rgba(0, 170, 255, 0.8),
+                0 0 95px rgba(0, 140, 255, 0.5);
+        }
+
+        .chatgpt-3d span.deepest,
+        .code-3d span.deepest {
+            filter: blur(0.6px);
+            opacity: 0.95;
+        }
+
+        /* ==========================================
+           7. MOTION KEYFRAMES
+           ==========================================
+           Important: EVERY keyframe includes
+           translate(-50%, -50%) so the scene stays
+           centered on the viewport while scaling /
+           rotating / moving around the 4 corners.
+        ========================================== */
+
+        @keyframes chatGPTRotation {
+            0%   { transform: translate(-50%, -50%) scale(0.05) rotateY(0deg)   rotateX(0deg); }
+            13%  { transform: translate(-50%, -50%) scale(1.25) rotateY(150deg) rotateX(18deg); }
+            20%  { transform: translate(-50%, -50%) scale(1.15) rotateY(190deg) rotateX(12deg); }
+            60%  { transform: translate(-50%, -50%) scale(0.6)  rotateY(290deg) rotateX(-6deg); }
+            100% { transform: translate(-50%, -50%) scale(0.05) rotateY(360deg) rotateX(0deg); }
+        }
+
+        @keyframes codeRotation {
+            0%   { transform: translate(-50%, -50%) scale(0.05) rotateY(0deg)    rotateX(0deg); }
+            13%  { transform: translate(-50%, -50%) scale(1.15) rotateY(-150deg) rotateX(-18deg); }
+            20%  { transform: translate(-50%, -50%) scale(1.05) rotateY(-190deg) rotateX(-12deg); }
+            60%  { transform: translate(-50%, -50%) scale(0.55) rotateY(-290deg) rotateX(6deg); }
+            100% { transform: translate(-50%, -50%) scale(0.05) rotateY(-360deg) rotateX(0deg); }
+        }
+
+        /* 
+           Float keyframes set top/left around the center.
+           With translate(-50%,-50%) in rotation, positions
+           read as: 50% = center, 25% = quarter, 75% = three-quarter.
+        */
+        @keyframes chatGPTFloat {
+            0%   { top: 42%; left: 50%; }
+            15%  { top: 50%; left: 75%; }
+            30%  { top: 25%; left: 75%; }
+            45%  { top: 25%; left: 25%; }
+            60%  { top: 75%; left: 25%; }
+            75%  { top: 75%; left: 75%; }
+            90%  { top: 42%; left: 50%; }
+            100% { top: 42%; left: 50%; }
+        }
+
+        @keyframes codeFloat {
+            0%   { top: 58%; left: 50%; }
+            15%  { top: 50%; left: 25%; }
+            30%  { top: 75%; left: 25%; }
+            45%  { top: 75%; left: 75%; }
+            60%  { top: 25%; left: 75%; }
+            75%  { top: 25%; left: 25%; }
+            90%  { top: 58%; left: 50%; }
+            100% { top: 58%; left: 50%; }
+        }
+
+        /* ==========================================
+           8. GRID
+        ========================================== */
+
+        .grid {
+            position: fixed;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+
+            background-image:
+                linear-gradient(rgba(140, 220, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(140, 220, 255, 0.035) 1px, transparent 1px);
+            background-size: 50px 50px;
+
+            mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
+        }
+
+        /* ==========================================
+           9. SCROLLABLE PAGE
+        ========================================== */
+
+        .page {
+            position: relative;
+            z-index: 10;
+
+            width: 100%;
+
+            pointer-events: none;
+        }
+
+        .hero-section {
+            position: relative;
+
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            padding: 60px 24px 120px;
+        }
+
+        .content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(34px, 5.5vw, 78px);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 20px;
+
+            background: linear-gradient(135deg, #ffffff 0%, #8ee6ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            filter: drop-shadow(0 6px 24px rgba(0, 170, 255, 0.4));
+        }
+
+        .content p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(14px, 1.7vw, 20px);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            color: #d0d8e8;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 42px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            color: #8fb3c9;
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+
+            animation: scrollBounce 2.2s ease-in-out infinite;
+        }
+
+        .scroll-hint .arrow {
+            width: 22px;
+            height: 22px;
+            border-right: 2px solid #8ee6ff;
+            border-bottom: 2px solid #8ee6ff;
+            transform: rotate(45deg);
+            filter: drop-shadow(0 0 8px rgba(0, 190, 255, 0.7));
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
+            50%      { transform: translate(-50%, 10px); opacity: 1; }
+        }
+
+        .editor-section {
+            position: relative;
+
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 60px 32px;
+
+            pointer-events: auto;
+        }
+
+        /* ==========================================
+           10. CODE EDITOR
+        ========================================== */
+
+        .code-editor {
+            position: relative;
+
+            width: 100%;
+            max-width: 1400px;
+            height: 82vh;
+            min-height: 460px;
+
+            display: flex;
+            flex-direction: column;
+
+            background: transparent;
+
+            border: 1px solid rgba(120, 200, 255, 0.20);
+            border-radius: 16px;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(120, 200, 255, 0.06) inset,
+                0 0 60px rgba(0, 170, 255, 0.12);
+
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+
+            color: #d6ecff;
+
+            overflow: hidden;
+        }
+
+        .editor-bar {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 11px 18px;
+
+            background: linear-gradient(
+                180deg,
+                rgba(20, 30, 48, 0.55) 0%,
+                rgba(10, 16, 28, 0.55) 100%
+            );
+
+            border-bottom: 1px solid rgba(120, 200, 255, 0.14);
+
+            flex-shrink: 0;
+        }
+
+        .editor-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .editor-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: block;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.35);
+        }
+
+        .editor-dots span:nth-child(1) { background: #ff5f57; }
+        .editor-dots span:nth-child(2) { background: #ffbd2e; }
+        .editor-dots span:nth-child(3) { background: #28ca42; }
+
+        .editor-title {
+            font-size: 12px;
+            color: #c4dced;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+        }
+
+        .editor-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            background: linear-gradient(135deg, #8ee6ff, #0090db);
+            box-shadow: 0 0 8px rgba(0, 190, 255, 0.7);
+        }
+
+        .editor-lang {
+            margin-left: auto;
+            font-size: 10px;
+            color: #a8c5d8;
+            padding: 3px 9px;
+            border-radius: 5px;
+            background: rgba(120, 200, 255, 0.12);
+            border: 1px solid rgba(120, 200, 255, 0.22);
+            letter-spacing: 0.06em;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+        }
+
+        .editor-body {
+            position: relative;
+            z-index: 2;
+
+            flex: 1;
+            min-height: 0;
+
+            display: flex;
+
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .editor-body::-webkit-scrollbar { width: 10px; }
+        .editor-body::-webkit-scrollbar-track { background: transparent; }
+        .editor-body::-webkit-scrollbar-thumb {
+            background: rgba(120, 200, 255, 0.22);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        .editor-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(120, 200, 255, 0.4);
+            background-clip: content-box;
+        }
+
+        .line-numbers {
+            padding: 16px 14px 40px 22px;
+            text-align: right;
+            color: #6a8aa2;
+            user-select: none;
+            font-size: 13px;
+            line-height: 1.7;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(120, 200, 255, 0.12);
+            white-space: pre;
+            min-width: 52px;
+            text-shadow:
+                0 0 6px rgba(0, 0, 0, 0.95),
+                0 0 12px rgba(0, 0, 0, 0.7);
+        }
+
+        .editor-code {
+            flex: 1;
+
+            padding: 16px 24px 60px 20px;
+
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+
+            white-space: pre;
+            tab-size: 2;
+
+            outline: none;
+            caret-color: #8ee6ff;
+
+            background: transparent;
+
+            min-height: 100%;
+
+            text-shadow:
+                0 0 5px rgba(0, 0, 0, 0.95),
+                0 0 11px rgba(0, 0, 0, 0.75),
+                0 0 22px rgba(0, 0, 0, 0.5);
+        }
+
+        .editor-code:empty::before {
+            content: '// start typing your code…';
+            color: #4f6f88;
+            pointer-events: none;
+        }
+
+        .tok-cmt  { color: #79b391; font-style: italic; }
+        .tok-kw   { color: #7ad3ff; }
+        .tok-fn   { color: #9eebff; }
+        .tok-num  { color: #e0b07a; }
+        .tok-str  { color: #b3eeb0; }
+        .tok-var  { color: #e0f0ff; }
+        .tok-punc { color: #93b6cc; }
+        .tok-prop { color: #c6d2ff; }
+        .tok-lit  { color: #ffa9c2; }
+
+        .editor-status {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            padding: 7px 18px;
+
+            font-size: 11px;
+            color: #a0c0d6;
+
+            background: linear-gradient(
+                180deg,
+                rgba(10, 16, 28, 0.55) 0%,
+                rgba(6, 10, 20, 0.6) 100%
+            );
+
+            border-top: 1px solid rgba(120, 200, 255, 0.12);
+
+            flex-shrink: 0;
+
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+        }
+
+        .editor-status .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #28ca42;
+            box-shadow: 0 0 10px rgba(40, 202, 66, 0.8);
+            display: inline-block;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .editor-status .right {
+            margin-left: auto;
+            display: flex;
+            gap: 18px;
+        }
+
+        @media (max-width: 640px) {
+            .content h1 { font-size: 30px; }
+            .content p { font-size: 14px; }
+            .editor-section { padding: 40px 14px; }
+            .code-editor { height: 84vh; border-radius: 12px; }
+            .editor-code { padding: 14px 14px 50px 14px; font-size: 12px; }
+            .line-numbers { padding: 14px 10px 50px 14px; font-size: 12px; }
+            .scroll-hint { font-size: 10px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Fixed background layers -->
+    <div class="bg-layer">
+        <div class="soft-glow g1"></div>
+        <div class="soft-glow g2"></div>
+    </div>
+
+    <div class="glass"></div>
+
+    <!-- ==========================================
+         FIXED SCENE CONTAINER
+         Perspective root = viewport center.
+         Both scenes absolutely-positioned inside.
+    ========================================== -->
+    <div class="scene-container" aria-hidden="true">
+
+        <!-- CONTRIBPILOT -->
+        <div class="chatgpt-scene">
+            <div class="chatgpt-shadow-aura">CONTRIBPILOT</div>
+            <div class="chatgpt-shadow-core">CONTRIBPILOT</div>
+
+            <div class="chatgpt-3d">
+                <span class="front" style="--z:  0px;">CONTRIBPILOT</span>
+                <span style="--z:  -1px; --c:#d4f6ff;">CONTRIBPILOT</span>
+                <span style="--z:  -2px; --c:#c4f2ff;">CONTRIBPILOT</span>
+                <span style="--z:  -3px; --c:#b4eeff;">CONTRIBPILOT</span>
+                <span style="--z:  -4px; --c:#a4eaff;">CONTRIBPILOT</span>
+                <span style="--z:  -5px; --c:#94e5ff;">CONTRIBPILOT</span>
+                <span style="--z:  -6px; --c:#84e0ff;">CONTRIBPILOT</span>
+                <span style="--z:  -7px; --c:#74daff;">CONTRIBPILOT</span>
+                <span style="--z:  -8px; --c:#64d4ff;">CONTRIBPILOT</span>
+                <span style="--z:  -9px; --c:#54ceff;">CONTRIBPILOT</span>
+                <span style="--z: -10px; --c:#44c8ff;">CONTRIBPILOT</span>
+                <span style="--z: -11px; --c:#36c1ff;">CONTRIBPILOT</span>
+                <span style="--z: -12px; --c:#28baff;">CONTRIBPILOT</span>
+                <span style="--z: -13px; --c:#1ab2ff;">CONTRIBPILOT</span>
+                <span style="--z: -14px; --c:#10aaff;">CONTRIBPILOT</span>
+                <span style="--z: -15px; --c:#08a2f5;">CONTRIBPILOT</span>
+                <span style="--z: -16px; --c:#0099e8;">CONTRIBPILOT</span>
+                <span style="--z: -17px; --c:#0090db;">CONTRIBPILOT</span>
+                <span style="--z: -18px; --c:#0087ce;">CONTRIBPILOT</span>
+                <span style="--z: -19px; --c:#007ec1;">CONTRIBPILOT</span>
+                <span style="--z: -20px; --c:#0075b4;">CONTRIBPILOT</span>
+                <span style="--z: -21px; --c:#006ca7;">CONTRIBPILOT</span>
+                <span style="--z: -22px; --c:#00639a;">CONTRIBPILOT</span>
+                <span style="--z: -23px; --c:#005a8d;">CONTRIBPILOT</span>
+                <span style="--z: -24px; --c:#005180;">CONTRIBPILOT</span>
+                <span style="--z: -25px; --c:#004873;">CONTRIBPILOT</span>
+                <span style="--z: -26px; --c:#003f66;">CONTRIBPILOT</span>
+                <span style="--z: -27px; --c:#003659;">CONTRIBPILOT</span>
+                <span style="--z: -28px; --c:#002e4d;">CONTRIBPILOT</span>
+                <span style="--z: -29px; --c:#002742;">CONTRIBPILOT</span>
+                <span style="--z: -30px; --c:#002138;">CONTRIBPILOT</span>
+                <span style="--z: -31px; --c:#001b2e;">CONTRIBPILOT</span>
+                <span style="--z: -32px; --c:#001625;">CONTRIBPILOT</span>
+                <span style="--z: -33px; --c:#00121e;">CONTRIBPILOT</span>
+                <span style="--z: -34px; --c:#000f18;">CONTRIBPILOT</span>
+                <span style="--z: -35px; --c:#000c14;">CONTRIBPILOT</span>
+                <span style="--z: -36px; --c:#000a10;">CONTRIBPILOT</span>
+                <span class="deepest" style="--z: -38px; --c:#00080c;">CONTRIBPILOT</span>
+                <span class="deepest" style="--z: -40px; --c:#000609;">CONTRIBPILOT</span>
+                <span class="deepest" style="--z: -42px; --c:#000508;">CONTRIBPILOT</span>
+            </div>
+        </div>
+
+        <!-- CompileSyntaxError -->
+        <div class="code-scene">
+            <div class="code-shadow-aura">CompileSyntaxError</div>
+            <div class="code-shadow-core">CompileSyntaxError</div>
+
+            <div class="code-3d">
+                <span class="front" style="--z:  0px;">CompileSyntaxError</span>
+                <span style="--z:  -1px; --c:#d4f6ff;">CompileSyntaxError</span>
+                <span style="--z:  -2px; --c:#c4f2ff;">CompileSyntaxError</span>
+                <span style="--z:  -3px; --c:#b4eeff;">CompileSyntaxError</span>
+                <span style="--z:  -4px; --c:#a4eaff;">CompileSyntaxError</span>
+                <span style="--z:  -5px; --c:#94e5ff;">CompileSyntaxError</span>
+                <span style="--z:  -6px; --c:#84e0ff;">CompileSyntaxError</span>
+                <span style="--z:  -7px; --c:#74daff;">CompileSyntaxError</span>
+                <span style="--z:  -8px; --c:#64d4ff;">CompileSyntaxError</span>
+                <span style="--z:  -9px; --c:#54ceff;">CompileSyntaxError</span>
+                <span style="--z: -10px; --c:#44c8ff;">CompileSyntaxError</span>
+                <span style="--z: -11px; --c:#36c1ff;">CompileSyntaxError</span>
+                <span style="--z: -12px; --c:#28baff;">CompileSyntaxError</span>
+                <span style="--z: -13px; --c:#1ab2ff;">CompileSyntaxError</span>
+                <span style="--z: -14px; --c:#10aaff;">CompileSyntaxError</span>
+                <span style="--z: -15px; --c:#08a2f5;">CompileSyntaxError</span>
+                <span style="--z: -16px; --c:#0099e8;">CompileSyntaxError</span>
+                <span style="--z: -17px; --c:#0090db;">CompileSyntaxError</span>
+                <span style="--z: -18px; --c:#0087ce;">CompileSyntaxError</span>
+                <span style="--z: -19px; --c:#007ec1;">CompileSyntaxError</span>
+                <span style="--z: -20px; --c:#0075b4;">CompileSyntaxError</span>
+                <span style="--z: -21px; --c:#006ca7;">CompileSyntaxError</span>
+                <span style="--z: -22px; --c:#00639a;">CompileSyntaxError</span>
+                <span style="--z: -23px; --c:#005a8d;">CompileSyntaxError</span>
+                <span style="--z: -24px; --c:#005180;">CompileSyntaxError</span>
+                <span style="--z: -25px; --c:#004873;">CompileSyntaxError</span>
+                <span style="--z: -26px; --c:#003f66;">CompileSyntaxError</span>
+                <span style="--z: -27px; --c:#003659;">CompileSyntaxError</span>
+                <span style="--z: -28px; --c:#002e4d;">CompileSyntaxError</span>
+                <span class="deepest" style="--z: -30px; --c:#002138;">CompileSyntaxError</span>
+                <span class="deepest" style="--z: -32px; --c:#001625;">CompileSyntaxError</span>
+                <span class="deepest" style="--z: -34px; --c:#000a10;">CompileSyntaxError</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="grid"></div>
+
+    <!-- ============ SCROLLABLE PAGE ============ -->
+    <main class="page">
+
+        <section class="hero-section">
+            <div class="content">
+                <h1>Contribute with Confidence</h1>
+                <p>
+                    Find the right issue, understand the code,
+                    fix it, and prove it works — all in one place.
+                </p>
+            </div>
+
+            <div class="scroll-hint">
+                <span>Scroll to open editor</span>
+                <div class="arrow"></div>
+            </div>
+        </section>
+
+        <section class="editor-section">
+            <div class="code-editor">
+
+                <div class="editor-bar">
+                    <div class="editor-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="editor-title">fix-issue.js</div>
+                    <div class="editor-lang">JS</div>
+                </div>
+
+                <div class="editor-body">
+                    <div class="line-numbers" id="lineNumbers">1</div>
+                    <pre class="editor-code" id="editorCode" contenteditable="true" spellcheck="false"><span class="tok-cmt">// Resolve issue #142 — patch applied</span>
+<span class="tok-kw">function</span> <span class="tok-fn">fixBug</span><span class="tok-punc">(</span><span class="tok-var">data</span><span class="tok-punc">)</span> <span class="tok-punc">{</span>
+  <span class="tok-kw">if</span> <span class="tok-punc">(</span><span class="tok-punc">!</span><span class="tok-var">data</span><span class="tok-punc">)</span> <span class="tok-kw">return</span> <span class="tok-lit">null</span><span class="tok-punc">;</span>
+
+  <span class="tok-kw">const</span> <span class="tok-var">result</span> <span class="tok-punc">=</span> <span class="tok-var">data</span>
+    <span class="tok-punc">.</span><span class="tok-fn">map</span><span class="tok-punc">(</span><span class="tok-var">x</span> <span class="tok-punc">=&gt;</span> <span class="tok-var">x</span> <span class="tok-punc">*</span> <span class="tok-num">2</span><span class="tok-punc">)</span>
+    <span class="tok-punc">.</span><span class="tok-fn">filter</span><span class="tok-punc">(</span><span class="tok-var">x</span> <span class="tok-punc">=&gt;</span> <span class="tok-var">x</span> <span class="tok-punc">&gt;</span> <span class="tok-num">0</span><span class="tok-punc">)</span><span class="tok-punc">;</span>
+
+  <span class="tok-kw">return</span> <span class="tok-var">result</span><span class="tok-punc">;</span>
+<span class="tok-punc">}</span></pre>
+                </div>
+
+                <div class="editor-status">
+                    <span><span class="status-dot"></span>Ready</span>
+                    <span id="cursorPos">Ln 1, Col 1</span>
+                    <div class="right">
+                        <span>UTF-8</span>
+                        <span>LF</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        (function () {
+            const editor   = document.getElementById('editorCode');
+            const lineNums = document.getElementById('lineNumbers');
+            const cursor   = document.getElementById('cursorPos');
+
+            function updateLineNumbers() {
+                const text  = editor.innerText.replace(/\n$/, '');
+                const lines = text.split('\n').length || 1;
+                let out = '';
+                for (let i = 1; i <= lines; i++) {
+                    out += i + (i < lines ? '\n' : '');
+                }
+                lineNums.textContent = out;
+            }
+
+            function updateCursorPos() {
+                const sel = window.getSelection();
+                if (!sel || !sel.rangeCount) return;
+                const range = sel.getRangeAt(0);
+                if (!editor.contains(range.startContainer)) return;
+
+                const pre = range.cloneRange();
+                pre.selectNodeContents(editor);
+                pre.setEnd(range.startContainer, range.startOffset);
+
+                const text      = pre.toString();
+                const linesText = text.split('\n');
+                const line      = linesText.length;
+                const col       = linesText[linesText.length - 1].length + 1;
+
+                cursor.textContent = `Ln ${line}, Col ${col}`;
+            }
+
+            editor.addEventListener('keydown', function (e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    document.execCommand('insertText', false, '  ');
+                }
+            });
+
+            editor.addEventListener('input', () => {
+                updateLineNumbers();
+                updateCursorPos();
+            });
+
+            editor.addEventListener('keyup', updateCursorPos);
+            editor.addEventListener('click', updateCursorPos);
+            editor.addEventListener('focus', updateCursorPos);
+
+            editor.addEventListener('paste', function (e) {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                document.execCommand('insertText', false, text);
+            });
+
+            updateLineNumbers();
+            updateCursorPos();
+        })();
+    </script>
+
+</body>
+</html>
