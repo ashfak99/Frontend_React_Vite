@@ -9,16 +9,18 @@ const Contact = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     setLoading(true);
     setError('');
     try {
       const response = await fetch('https://formspree.io/f/xbgljqrz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(event.currentTarget))),
+        body: JSON.stringify(Object.fromEntries(formData)),
       });
       if (!response.ok) throw new Error('Submission failed');
-      event.currentTarget.reset();
+      form.reset();
       setSent(true);
     } catch {
       setError('The form could not send your message. Please email ashfakalam8423@gmail.com instead.');
