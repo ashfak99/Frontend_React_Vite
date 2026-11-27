@@ -1,135 +1,51 @@
-import React from 'react';
 import { FaArrowRight, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { projects } from '../data/portfolioData';
 
-const Projects = () => {
-  // Projects ka data (GitHub repos ke hisaab se)
-  const projectsData = [
-    {
-      title: "EnhanceSkills",
-      subtitle: "Android Skill Tracking App",
-      desc: "An Android application built with Kotlin and Gradle to help users enhance and track their skills efficiently.",
-      tech: ["Kotlin", "Android", "Gradle"],
-      icon: "📱",
-      github: "https://github.com/ashfak99/EnhanceSkills"
-    },
-    {
-      title: "Rate-Limiter",
-      subtitle: "Distributed Rate Limiter Middleware",
-      desc: "A high-performance, distributed rate limiter middleware for Node.js using Redis, implementing the Sliding Window Log algorithm for precise request limiting.",
-      tech: ["Node.js", "Redis", "Express.js"],
-      icon: "⏱️",
-      github: "https://github.com/ashfak99/Rate-Limiter"
-    },
-    {
-      title: "Face-Blur-System",
-      subtitle: "AI Privacy Protection Tool",
-      desc: "A Streamlit web app that detects and blurs faces in images using MediaPipe and OpenCV, with adjustable blur intensity and real-time preview.",
-      tech: ["Python", "Streamlit", "OpenCV", "MediaPipe"],
-      icon: "🔒",
-      github: "https://github.com/ashfak99/Face-Blur-System"
-    },
-    {
-      title: "Frontend Projects",
-      subtitle: "React + Vite Web Apps",
-      desc: "A collection of modern frontend projects built with React and Vite, including a fully responsive gym website and a personal portfolio.",
-      tech: ["React", "Vite", "Tailwind CSS"],
-      icon: "⚛️",
-      github: "https://github.com/ashfak99/Frontend_React_Vite"
-    }
-  ];
-
-  return (
-    <section id="projects" className="bg-[#0B1120] text-white py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-6 md:px-16">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 text-blue-400 font-semibold mb-3 bg-blue-900/30 border border-blue-800/50 px-3 py-1 rounded-full text-xs">
-              <FaGithub /> Featured Projects
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              My Recent <span className="text-blue-500">Work</span>
-            </h2>
-            <p className="text-gray-400 text-sm max-w-xl">
-              A collection of projects built with modern technologies, focused on backend, AI and real-world problem solving.
-            </p>
-          </div>
-          
-          <a 
-            href="https://github.com/ashfak99" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center gap-2 transition"
-          >
-            View All Projects <FaArrowRight size={12} />
-          </a>
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {projectsData.map((project, index) => (
-            <div 
-              key={index} 
-              className="bg-[#112240] border border-[#233554] rounded-2xl p-6 flex flex-col justify-between hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition duration-300 group"
-            >
-              <div>
-                {/* Project Icon & Arrow */}
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-3xl bg-[#0B1120] p-2 rounded-lg border border-[#233554]">
-                    {project.icon}
-                  </div>
-                  <a 
-                    href={project.github} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-blue-400 transition"
-                  >
-                    <FaExternalLinkAlt size={14} />
-                  </a>
-                </div>
-
-                {/* Title & Subtitle */}
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-blue-400 transition">
-                  {project.title}
-                </h3>
-                <p className="text-xs text-blue-400 font-medium mb-3">
-                  {project.subtitle}
-                </p>
-
-                {/* Description */}
-                <p className="text-gray-400 text-xs leading-relaxed mb-6">
-                  {project.desc}
-                </p>
-              </div>
-
-              {/* Tech Stack Badges */}
-              <div>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((t, i) => (
-                    <span key={i} className="bg-[#0B1120] border border-[#233554] text-gray-300 text-[10px] px-2 py-1 rounded-md">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {/* View Project Link */}
-                <a 
-                  href={project.github} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-400 text-xs font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-300"
-                >
-                  View Project <FaArrowRight size={10} />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-
+const Projects = () => (
+  <section id="projects" className="section">
+    <div className="container">
+      <div className="section-heading reveal">
+        <div className="eyebrow"><FaGithub /> Featured projects</div>
+        <h2>Selected engineering work.</h2>
+        <p>Projects spanning AI-assisted developer workflows, backend infrastructure, privacy tools, and Android applications.</p>
       </div>
-    </section>
-  );
-};
+      <div className="project-grid reveal">
+        {projects.map((project, index) => (
+          <article className="project-card card" key={project.title}>
+            <div className="project-index">0{index + 1}</div>
+            <div className="project-body">
+              <h3>{project.title}</h3>
+              <p className="project-subtitle">{project.subtitle}</p>
+              <p className="project-description">{project.description}</p>
+              <ul>
+                {project.features.map((feature) => <li key={feature}>{feature}</li>)}
+              </ul>
+              <div className="tech-list">{project.tech.map((tech) => <span key={tech}>{tech}</span>)}</div>
+            </div>
+            <div className="project-links">
+              <a href={project.github} target="_blank" rel="noreferrer">GitHub <FaArrowRight /></a>
+              {project.live && <a href={project.live} target="_blank" rel="noreferrer">Live demo <FaExternalLinkAlt /></a>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+    <style>{`
+      .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+      .project-card{position:relative;display:flex;flex-direction:column;min-height:430px;padding:28px;overflow:hidden}
+      .project-card:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--border))}
+      .project-index{position:absolute;right:20px;top:16px;color:var(--border);font-size:3.8rem;font-weight:850;line-height:1}
+      .project-body{position:relative;z-index:1}.project-body h3{margin:0 0 6px;font-size:1.45rem}
+      .project-subtitle{color:var(--accent)!important;font-size:.76rem!important;font-weight:700;margin-bottom:18px!important}
+      .project-description{max-width:470px;color:var(--muted);font-size:.92rem;line-height:1.7}
+      .project-body ul{margin:20px 0;padding:0 0 0 18px;color:var(--muted);font-size:.84rem;line-height:1.9}
+      .project-body li::marker{color:var(--accent)}
+      .tech-list{display:flex;flex-wrap:wrap;gap:7px}.tech-list span{padding:6px 8px;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:.68rem}
+      .project-links{display:flex;gap:18px;margin-top:auto;padding-top:24px}.project-links a{display:flex;align-items:center;gap:7px;color:var(--text);font-size:.78rem;font-weight:750}
+      .project-links a:hover{color:var(--accent)}
+      @media(max-width:768px){.project-grid{grid-template-columns:1fr}.project-card{min-height:400px}}
+    `}</style>
+  </section>
+);
 
 export default Projects;
